@@ -1,0 +1,67 @@
+{
+  "_readme": "Names, links, statuses, photos and the contact address for the whole site. Edit this file, not the HTML. See UPDATING.md.",
+
+  "person": {
+    "name": "Nur Ifran Arpon",
+    "short": "Arpon",
+    "role": "Founder of SpaceZ"
+  },
+
+  "brand": {
+    "name": "SpaceZ",
+    "line": "Apps and websites, built and shipped by student developers."
+  },
+
+  "contact": {
+    "email": "mcdengineeringdesign@gmail.com",
+    "_note": "The one place the contact address lives. The Hire page assembles it with JavaScript (it is never written into the HTML). To change it, edit only this line and the no-JS line in hire.html."
+  },
+
+  "photos": [],
+  "_photos_example": [
+    { "src": "assets/img/me/arpon-1.webp", "alt": "Nur Ifran Arpon", "width": 900, "height": 1100 }
+  ],
+
+  "links": {
+    "github": "https://github.com/nur-arpon",
+    "kofi": "https://ko-fi.com/nurifran",
+    "storePublisher": "https://apps.microsoft.com/search/publisher?name=SpaceZ"
+  },
+
+  "projects": {
+    "spaceadom": {
+      "label": "On the Microsoft Store",
+      "state": "live",
+      "site": "https://nur-arpon.github.io/Spaceadom/",
+      "store": "https://apps.microsoft.com/detail/9PNB2QDZK902",
+      "repo": "https://github.com/nur-arpon/Spaceadom"
+    },
+    "spaceadomMac": { "label": "macOS: in development", "state": "dev" },
+    "spike": {
+      "label": "App on the Microsoft Store",
+      "state": "live",
+      "site": "https://nur-arpon.github.io/Spike/",
+      "store": "https://apps.microsoft.com/detail/9N9TG975NJ6N",
+      "repo": "https://github.com/nur-arpon/Spike"
+    },
+    "deskBuddy": { "label": "Robot: prototype, building now", "state": "build" },
+    "filez": {
+      "label": "On the Microsoft Store",
+      "state": "live",
+      "store": "https://apps.microsoft.com/detail/9MVK3ST0Z29J",
+      "repo": "https://github.com/nur-arpon/FileZ"
+    },
+    "mistri": { "label": "Android: in testing", "state": "test" },
+    "hashi": {
+      "label": "Live website",
+      "state": "live",
+      "site": "https://nur-arpon.github.io/hashi-khushi/"
+    }
+  },
+
+  "hire": {
+    "types": ["Website", "Windows app", "Android app", "Mac app", "Store publishing and launch", "Something else"],
+    "budgets": ["Under US$1,000", "US$1,000 to 5,000", "US$5,000 to 15,000", "More than US$15,000", "Not sure yet"],
+    "timelines": ["As soon as possible", "Within 1 to 2 months", "In 3 months or more", "I'm flexible"]
+  }
+}

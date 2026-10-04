@@ -1,0 +1,45 @@
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="{{root}}" aria-label="SpaceZ, home">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#07080A"/><rect x=".5" y=".5" width="63" height="63" rx="15.5" fill="none" stroke="rgba(255,255,255,.16)"/><path d="M18 19H45L19 45H37.5" fill="none" stroke="#C8FF2E" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="47.5" cy="45" r="4.25" fill="#C8FF2E"/></svg>
+      <span>Space<span class="z">Z</span></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="{{root}}work.html"{{cur:work}}>Work</a>
+      <a href="{{root}}story.html"{{cur:story}}>Story</a>
+      <a href="{{root}}hire.html"{{cur:hire}}>Hire</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn theme-btn" type="button" aria-label="Switch colour theme">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a class="btn btn--primary btn--sm header-cta magnetic" href="{{root}}hire.html#brief"><span>Start a project</span></a>
+      <button class="icon-btn menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="menu" id="menu" aria-hidden="true" inert>
+  <div class="menu__top">
+    <a class="brand" href="{{root}}" aria-label="SpaceZ, home">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#07080A"/><rect x=".5" y=".5" width="63" height="63" rx="15.5" fill="none" stroke="rgba(255,255,255,.16)"/><path d="M18 19H45L19 45H37.5" fill="none" stroke="#C8FF2E" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="47.5" cy="45" r="4.25" fill="#C8FF2E"/></svg>
+      <span>Space<span class="z">Z</span></span>
+    </a>
+    <button class="icon-btn menu-close" type="button" aria-label="Close menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <nav aria-label="Menu">
+    <a href="{{root}}"{{cur:index}}>Home</a>
+    <a href="{{root}}work.html"{{cur:work}}>Work</a>
+    <a href="{{root}}story.html"{{cur:story}}>Story</a>
+    <a href="{{root}}hire.html"{{cur:hire}}>Hire</a>
+  </nav>
+  <div class="menu__foot">
+    <a class="btn btn--primary btn--lg" href="{{root}}hire.html#brief"><span>Start a project</span></a>
+    <p class="muted mono">Made by Nur Ifran Arpon · SpaceZ</p>
+  </div>
+</div>
