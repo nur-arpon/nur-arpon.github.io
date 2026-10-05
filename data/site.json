@@ -36,7 +36,8 @@
       "store": "https://apps.microsoft.com/detail/9PNB2QDZK902",
       "repo": "https://github.com/nur-arpon/Spaceadom"
     },
-    "spaceadomMac": { "label": "macOS: in development", "state": "dev" },
+    "spaceadomMac": { "label": "macOS: beta", "state": "test" },
+    "spaceadomLinux": { "label": "Linux: beta", "state": "test" },
     "spike": {
       "label": "App on the Microsoft Store",
       "state": "live",
