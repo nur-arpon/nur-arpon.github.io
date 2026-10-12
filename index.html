@@ -1,52 +1,62 @@
 <!doctype html>
-<html lang="en" class="no-js">
+<html lang="en" data-theme="black" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Nur Ifran Arpon — Founder of SpaceZ | Apps &amp; Websites</title>
-<meta name="description" content="Nur Ifran Arpon is a student developer and the founder of SpaceZ. SpaceZ builds Windows apps on the Microsoft Store (Spaceadom, Spike, FileZ), Android apps and websites, for clients anywhere.">
+<title>Nur Ifran Arpon — Developer, engineering student and founder of SpaceZ</title>
+<meta name="description" content="Nur Ifran Arpon is an engineering student and developer, and the founder of SpaceZ. He builds Windows apps on the Microsoft Store (Spaceadom, Spike, FileZ), Android apps, websites and a desk robot dog.">
 <link rel="canonical" href="https://nur-arpon.github.io/">
 <meta name="author" content="Nur Ifran Arpon">
-<meta name="theme-color" content="#07080a">
-<meta name="color-scheme" content="dark light">
-<script>(function(){var d=document.documentElement;d.className=d.className.replace('no-js','js');var t=null;try{t=localStorage.getItem('spacez-theme')}catch(e){}if(t!=='light'&&t!=='dark'){t=window.matchMedia&&matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'}d.setAttribute('data-theme',t)})();</script>
-<link rel="preload" href="assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#0e0e0f">
+<script>(function(){var d=document.documentElement;d.className=d.className.replace('no-js','js');var t=null;try{t=localStorage.getItem('arpon-look')}catch(e){}if(t==='navy'||t==='black')d.setAttribute('data-theme',t)})();</script>
+<link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/css/site.css">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="SpaceZ">
-<meta property="og:title" content="Nur Ifran Arpon — Founder of SpaceZ | Apps &amp; Websites">
-<meta property="og:description" content="SpaceZ builds Windows apps on the Microsoft Store, Android apps and websites. From idea to installed.">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Nur Ifran Arpon">
+<meta property="og:title" content="Nur Ifran Arpon — Developer and founder of SpaceZ">
+<meta property="og:description" content="Windows apps on the Microsoft Store, Android apps, websites and a desk robot dog. Built and shipped by Nur Ifran Arpon.">
 <meta property="og:url" content="https://nur-arpon.github.io/">
 <meta property="og:image" content="https://nur-arpon.github.io/assets/img/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="SpaceZ: From idea to installed. Nur Ifran Arpon and SpaceZ build apps and websites.">
+<meta property="og:image:alt" content="Nur Ifran Arpon — developer and founder of SpaceZ">
+<meta property="profile:first_name" content="Nur Ifran">
+<meta property="profile:last_name" content="Arpon">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "ProfilePage",
+      "@id": "https://nur-arpon.github.io/#page",
+      "url": "https://nur-arpon.github.io/",
+      "name": "Nur Ifran Arpon",
+      "mainEntity": { "@id": "https://nur-arpon.github.io/#person" }
+    },
+    {
       "@type": "Person",
       "@id": "https://nur-arpon.github.io/#person",
       "name": "Nur Ifran Arpon",
-      "alternateName": "Arpon",
+      "givenName": "Nur Ifran",
+      "familyName": "Arpon",
+      "alternateName": ["Arpon", "Nur Arpon"],
       "url": "https://nur-arpon.github.io/",
-      "image": "https://nur-arpon.github.io/assets/img/icon-512.png",
+      "image": "https://nur-arpon.github.io/assets/img/me/arpon.webp",
       "jobTitle": "Founder of SpaceZ",
-      "description": "Student developer who builds Windows apps, Android apps, hardware and websites under the name SpaceZ.",
-      "worksFor": { "@id": "https://nur-arpon.github.io/#org" },
+      "description": "Engineering student and developer who builds Windows apps, Android apps, websites and a desk robot dog under the name SpaceZ.",
       "founder": { "@id": "https://nur-arpon.github.io/#org" },
-      "knowsAbout": ["Rust", "Tauri", "Windows app development", "Flutter", "Android app development", "Web design", "Microsoft Store publishing", "ESP32", "3D printing"],
+      "worksFor": { "@id": "https://nur-arpon.github.io/#org" },
+      "knowsAbout": ["Rust", "Tauri", "Windows app development", "Flutter", "Firebase", "Android app development", "Web design", "Microsoft Store publishing", "ESP32", "SolidWorks", "3D printing"],
       "sameAs": [
         "https://github.com/nur-arpon",
         "https://ko-fi.com/nurifran",
+        "https://apps.microsoft.com/search/publisher?name=SpaceZ",
         "https://nur-arpon.github.io/Spaceadom/",
-        "https://nur-arpon.github.io/Spike/",
-        "https://apps.microsoft.com/search/publisher?name=SpaceZ"
+        "https://nur-arpon.github.io/Spike/"
       ]
     },
     {
@@ -54,20 +64,15 @@
       "@id": "https://nur-arpon.github.io/#org",
       "name": "SpaceZ",
       "url": "https://nur-arpon.github.io/",
-      "logo": "https://nur-arpon.github.io/assets/img/icon-512.png",
       "founder": { "@id": "https://nur-arpon.github.io/#person" },
-      "description": "SpaceZ builds and publishes Windows apps, Android apps and websites.",
-      "sameAs": [
-        "https://github.com/nur-arpon",
-        "https://apps.microsoft.com/search/publisher?name=SpaceZ"
-      ]
+      "description": "SpaceZ is the name Nur Ifran Arpon builds and publishes under: Windows apps, Android apps and websites.",
+      "sameAs": ["https://apps.microsoft.com/search/publisher?name=SpaceZ"]
     },
     {
       "@type": "WebSite",
       "@id": "https://nur-arpon.github.io/#site",
-      "name": "SpaceZ",
       "url": "https://nur-arpon.github.io/",
-      "publisher": { "@id": "https://nur-arpon.github.io/#org" },
+      "name": "Nur Ifran Arpon",
       "author": { "@id": "https://nur-arpon.github.io/#person" }
     }
   ]
@@ -75,322 +80,282 @@
 </script>
 </head>
 <body>
-<!-- header:start -->
 <a class="skip" href="#main">Skip to content</a>
-<header class="site-header">
+
+<header class="header" id="header">
   <div class="wrap">
-    <a class="brand" href="" aria-label="SpaceZ, home">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#07080A"/><rect x=".5" y=".5" width="63" height="63" rx="15.5" fill="none" stroke="rgba(255,255,255,.16)"/><path d="M18 19H45L19 45H37.5" fill="none" stroke="#C8FF2E" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="47.5" cy="45" r="4.25" fill="#C8FF2E"/></svg>
-      <span>Space<span class="z">Z</span></span>
-    </a>
+    <a class="wordmark" href="./">Nur Ifran Arpon</a>
     <nav class="nav" aria-label="Main">
-      <a href="work.html">Work</a>
-      <a href="story.html">Story</a>
-      <a href="hire.html">Hire</a>
+      <a href="#work">Projects</a>
+      <a href="story.html">Journey</a>
+      <a href="#skills">What I do</a>
     </nav>
-    <div class="header-actions">
-      <button class="icon-btn theme-btn" type="button" aria-label="Switch colour theme">
-        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>
-        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-      </button>
-      <a class="btn btn--primary btn--sm header-cta magnetic" href="hire.html#brief"><span>Start a project</span></a>
-      <button class="icon-btn menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
-      </button>
-    </div>
+    <button class="theme-switch" type="button" aria-label="Switch the look between black and navy"><span data-v="black">Black</span><span data-v="navy">Navy</span></button>
+    <a class="btn btn-primary btn-small" href="#contact">Say hello</a>
+    <button class="menu-btn" type="button" aria-label="Open the menu" aria-expanded="false" aria-controls="sheet"><i></i></button>
   </div>
 </header>
-<div class="menu" id="menu" aria-hidden="true" inert>
-  <div class="menu__top">
-    <a class="brand" href="" aria-label="SpaceZ, home">
-      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#07080A"/><rect x=".5" y=".5" width="63" height="63" rx="15.5" fill="none" stroke="rgba(255,255,255,.16)"/><path d="M18 19H45L19 45H37.5" fill="none" stroke="#C8FF2E" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="47.5" cy="45" r="4.25" fill="#C8FF2E"/></svg>
-      <span>Space<span class="z">Z</span></span>
-    </a>
-    <button class="icon-btn menu-close" type="button" aria-label="Close menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
-    </button>
-  </div>
-  <nav aria-label="Menu">
-    <a href="" aria-current="page">Home</a>
-    <a href="work.html">Work</a>
-    <a href="story.html">Story</a>
-    <a href="hire.html">Hire</a>
-  </nav>
-  <div class="menu__foot">
-    <a class="btn btn--primary btn--lg" href="hire.html#brief"><span>Start a project</span></a>
-    <p class="muted mono">Made by Nur Ifran Arpon · SpaceZ</p>
-  </div>
+<div class="sheet" id="sheet">
+  <a href="#work">Projects</a>
+  <a href="story.html">Journey</a>
+  <a href="#skills">What I do</a>
+  <a href="#contact">Say hello</a>
+  <button class="theme-switch" type="button" aria-label="Switch the look between black and navy"><span data-v="black">Black</span><span data-v="navy">Navy</span></button>
+  <a class="btn btn-primary" href="#contact">Say hello</a>
 </div>
-<!-- header:end -->
 
 <main id="main">
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="hero__pin">
-      <div class="hero__bg" aria-hidden="true"></div>
-      <div class="wrap hero__grid">
-        <div class="hero__copy">
-          <p class="hero__hello reveal">Hi, I'm <strong>Nur Ifran Arpon</strong>. I build under the name SpaceZ.</p>
-          <h1 id="hero-title" class="split">From idea to installed<span class="dot">.</span></h1>
-          <p class="lede reveal" style="--d:3">SpaceZ makes Windows apps you can install from the Microsoft Store today, Android apps, a desk robot dog, and websites for real businesses. We're student developers, and we ship.</p>
-          <div class="btn-row reveal" style="--d:4">
-            <a class="btn btn--primary btn--lg magnetic" href="hire.html#brief"><span>Start a project <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-            <a class="btn btn--ghost btn--lg magnetic" href="work.html"><span>See the work</span></a>
-          </div>
-          <div class="pills hero__meta reveal" style="--d:5">
-            <span class="pill" data-state="live">3 apps on the Microsoft Store</span>
-            <span class="pill pill--plain">Remote, any time zone</span>
-            <span class="pill pill--plain">Shipping since May 2026</span>
-          </div>
-        </div>
 
-        <div class="hero__art reveal" style="--d:2">
-          <div class="orbit" data-orbit>
-            <svg class="rings" viewBox="0 0 100 100" aria-hidden="true">
-              <ellipse class="ring" data-ring="0" cx="50" cy="50" rx="30" ry="13"/>
-              <ellipse class="ring ring--lit" data-ring="1" cx="50" cy="50" rx="40" ry="17.5"/>
-              <ellipse class="ring ring--dash" data-ring="2" cx="50" cy="50" rx="49" ry="21.5"/>
-            </svg>
-            <div class="orbit__core" data-photo-host>
-              <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M18 19H45L19 45H37.5" fill="none" stroke="#C8FF2E" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="47.5" cy="45" r="4.25" fill="#C8FF2E"/></svg>
-              <figure class="core-photo" data-photo="0" hidden></figure>
-            </div>
-            <a class="sat" href="work.html#spaceadom" data-ring="1" data-angle="15" style="--x:88%;--y:57%">
-              <img src="assets/img/work/icon-spaceadom.webp" width="128" height="128" alt="Spaceadom">
-              <span class="sat__label"><b>Spaceadom</b><small>Windows</small></span>
-            </a>
-            <a class="sat" href="work.html#spike" data-ring="2" data-angle="159" style="--x:8%;--y:60%">
-              <img src="assets/img/work/icon-spike.webp" width="128" height="128" alt="Spike">
-              <span class="sat__label"><b>Spike</b><small>Windows, Android, robot</small></span>
-            </a>
-            <a class="sat" href="work.html#filez" data-ring="0" data-angle="87" style="--x:42%;--y:37%">
-              <img src="assets/img/work/icon-filez.webp" width="128" height="128" alt="FileZ">
-              <span class="sat__label"><b>FileZ</b><small>Windows</small></span>
-            </a>
-            <a class="sat" href="work.html#mistri-lagbe" data-ring="2" data-angle="303" style="--x:74%;--y:32%">
-              <img src="assets/img/work/icon-mistri.webp" width="128" height="128" alt="Mistri Lagbe">
-              <span class="sat__label"><b>Mistri Lagbe</b><small>Android</small></span>
-            </a>
-            <a class="sat" href="work.html#hashi-khushi" data-ring="1" data-angle="231" style="--x:16%;--y:41%">
-              <img src="assets/img/work/icon-hashi.webp" width="128" height="128" alt="Hashi Khushi">
-              <span class="sat__label"><b>Hashi Khushi</b><small>Website</small></span>
-            </a>
-          </div>
-          <p class="orbit__hint" aria-hidden="true">Drag to spin. Tap an icon to see the project.</p>
+<section class="hero" id="top" aria-label="Introduction">
+  <div class="hero-pin">
+    <div class="orbit" aria-hidden="false">
+      <div class="orbit-cam" id="orbitCam">
+        <div class="ring" id="ring">
+          <button class="card3d" type="button" data-go="#spaceadom" aria-label="Go to Spaceadom"><img src="assets/img/work/spaceadom-arc.webp" alt="" width="1600" height="900"><span class="tag"><img src="assets/img/work/icon-spaceadom.webp" alt="" width="24" height="24">Spaceadom</span></button>
+          <button class="card3d" type="button" data-go="#spike" aria-label="Go to Spike"><img src="assets/img/work/spike-robot.webp" alt="" width="1400" height="1400"><span class="tag"><img src="assets/img/work/icon-spike.webp" alt="" width="24" height="24">Spike</span></button>
+          <button class="card3d" type="button" data-go="#filez" aria-label="Go to FileZ"><img src="assets/img/work/filez.webp" alt="" width="1280" height="720"><span class="tag"><img src="assets/img/work/icon-filez.webp" alt="" width="24" height="24">FileZ</span></button>
+          <button class="card3d" type="button" data-go="#spaceadom" aria-label="Go to Spaceadom"><img src="assets/img/work/spaceadom-edges.webp" alt="" width="1600" height="900"><span class="tag"><img src="assets/img/work/icon-spaceadom.webp" alt="" width="24" height="24">Spaceadom</span></button>
+          <button class="card3d" type="button" data-go="#spike" aria-label="Go to Spike"><img src="assets/img/work/spike-side.webp" alt="" width="1600" height="1200"><span class="tag"><img src="assets/img/work/icon-spike.webp" alt="" width="24" height="24">Desk Buddy</span></button>
+          <button class="card3d" type="button" data-go="#spaceadom" aria-label="Go to Spaceadom"><img src="assets/img/work/spaceadom-ring.webp" alt="" width="1600" height="900"><span class="tag"><img src="assets/img/work/icon-spaceadom.webp" alt="" width="24" height="24">Spaceadom</span></button>
+          <button class="card3d" type="button" data-go="#spike" aria-label="Go to Spike"><img src="assets/img/work/spike-app.webp" alt="" width="1280" height="720"><span class="tag"><img src="assets/img/work/icon-spike.webp" alt="" width="24" height="24">Spike app</span></button>
+          <button class="card3d" type="button" data-go="#filez" aria-label="Go to FileZ"><img src="assets/img/work/filez-light.webp" alt="" width="1280" height="720"><span class="tag"><img src="assets/img/work/icon-filez.webp" alt="" width="24" height="24">FileZ</span></button>
         </div>
       </div>
-      <div class="hero__cue" aria-hidden="true"><i></i>Scroll</div>
     </div>
-  </section>
+    <div class="orbit-shade"></div>
 
-  <div class="marquee" aria-label="Tools we build with">
-    <div class="marquee__track">
-      <span>Rust</span><span>Tauri v2</span><span>Flutter</span><span>Firebase</span><span>ESP32-S3</span><span>SolidWorks</span><span>Python</span><span>HTML, CSS, JavaScript</span><span>Microsoft Store</span><span>GitHub Pages</span>
-      <span aria-hidden="true">Rust</span><span aria-hidden="true">Tauri v2</span><span aria-hidden="true">Flutter</span><span aria-hidden="true">Firebase</span><span aria-hidden="true">ESP32-S3</span><span aria-hidden="true">SolidWorks</span><span aria-hidden="true">Python</span><span aria-hidden="true">HTML, CSS, JavaScript</span><span aria-hidden="true">Microsoft Store</span><span aria-hidden="true">GitHub Pages</span>
+    <div class="hero-copy">
+      <div class="hero-kicker">
+        <span class="pill"><span class="dot" style="color:var(--accent)"></span>Engineering student</span>
+        <span class="pill">Founder of SpaceZ</span>
+      </div>
+      <h1><span class="line"><span>Nur Ifran</span></span><span class="line"><span class="soft">Arpon</span></span></h1>
+      <p class="hero-lede">I'm an engineering student who builds things people really use: three Windows apps on the Microsoft Store, and a desk robot dog with a face.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#work">See my projects</a>
+        <a class="btn btn-ghost" href="story.html">Read my journey</a>
+      </div>
+    </div>
+    <div class="hero-hint"><i></i>Scroll, or tap a picture</div>
+  </div>
+</section>
+
+<section class="statement" aria-label="About me in one paragraph">
+  <div class="wrap">
+    <p data-words>In May 2026 I wrote a small script for my own keyboard. Five months later it is three apps on the Microsoft Store and a robot dog taking shape on my desk.</p>
+    <div class="facts">
+      <div class="fact rv"><b>3</b><span>apps on the Microsoft Store</span></div>
+      <div class="fact rv"><b>1</b><span>robot dog, being built now</span></div>
+      <div class="fact rv"><b>x64 + ARM64</b><span>every Windows app, both kinds of PC</span></div>
+      <div class="fact rv"><b>May&nbsp;2026</b><span>my first public release</span></div>
     </div>
   </div>
+</section>
 
-  <section class="section" aria-labelledby="work-title">
-    <div class="wrap">
-      <div class="rail-head">
-        <div>
-          <p class="eyebrow reveal">Selected work</p>
-          <h2 id="work-title" class="split">Real things, in real hands.</h2>
-        </div>
-        <div class="rail-ctrl">
-          <button class="icon-btn" type="button" data-rail-prev aria-label="Previous projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-          <button class="icon-btn" type="button" data-rail-next aria-label="Next projects"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+<section class="work-intro" id="work" aria-labelledby="work-h">
+  <div class="wrap sec-head">
+    <h2 id="work-h" class="rv">My projects</h2>
+    <p class="rv">Three things I designed, built and shipped myself. Each one appears in its own colours, the way it looks in real life, and says plainly where it stands.</p>
+  </div>
+</section>
+
+<section class="chapter" id="spaceadom" aria-labelledby="spaceadom-h"
+  data-palette='{"bg":"#070b17","bg3":"#131b33","line":"#222b48","ink":"#eef1fb","ink2":"#a3aac4","ink3":"#8189a8","accent":"#7d97ff"}'
+  style="--chapter-font:'Outfit',sans-serif;--chapter-weight:600;--chapter-track:-0.035em">
+  <div class="chapter-pin">
+    <div class="chapter-grid">
+      <div class="chapter-copy">
+        <div class="chapter-num"><img src="assets/img/work/icon-spaceadom.webp" alt="" width="36" height="36">01 · Windows app</div>
+        <h3 id="spaceadom-h">Spaceadom</h3>
+        <p class="tagline">Hold Space, tap a letter, and the app opens. Tap it again and it is gone.</p>
+        <ul>
+          <li>A ring of your apps under the mouse: hold the middle button, drift towards one, let go.</li>
+          <li>Touchpad edges become sliders for brightness, volume and video.</li>
+          <li>Rust and Tauri. Windows 10 and 11, x64 and ARM64. No account, no ads.</li>
+        </ul>
+        <div class="meta"><span class="pill live"><span class="dot"></span>On the Microsoft Store</span><span class="pill test"><span class="dot"></span>macOS and Linux: beta</span></div>
+        <div class="links">
+          <a class="btn btn-primary btn-small" href="https://apps.microsoft.com/detail/9PNB2QDZK902" target="_blank" rel="noopener">Get it free</a>
+          <a class="btn btn-ghost btn-small" href="https://nur-arpon.github.io/Spaceadom/">Visit the website</a>
         </div>
       </div>
-      <div class="rail-shell">
-        <div class="rail" data-rail tabindex="0" aria-label="Projects, scroll sideways">
-          <a class="card" href="work.html#spaceadom" data-tilt="5" style="--tint:#8b5cf6">
-            <div class="card__media"><img src="assets/img/work/spaceadom-ring.webp" width="1280" height="720" alt="Spaceadom's ring of app icons around the mouse cursor" loading="lazy" decoding="async"></div>
-            <div class="card__body">
-              <div class="card__top"><img class="card__icon" src="assets/img/work/icon-spaceadom.webp" width="40" height="40" alt=""><h3>Spaceadom</h3></div>
-              <p>Hold Space, tap a letter, and the app opens. Tap it again and it's gone. A spacebar app launcher for Windows.</p>
-              <div class="card__foot"><span class="pill" data-status="spaceadom" data-state="live">On the Microsoft Store</span><span class="chip">Rust</span><span class="chip">Tauri v2</span></div>
-            </div>
-            <span class="card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </a>
-          <a class="card" href="work.html#spike" data-tilt="5" style="--tint:#c98a5e">
-            <div class="card__media"><img src="assets/img/work/spike-app.webp" width="1280" height="720" alt="The Spike app for Windows, with Spike's face and a chat panel" loading="lazy" decoding="async"></div>
-            <div class="card__body">
-              <div class="card__top"><img class="card__icon" src="assets/img/work/icon-spike.webp" width="40" height="40" alt=""><h3>Spike + Desk Buddy</h3></div>
-              <p>A desktop companion with a face, a memory and a personality, and Desk Buddy, the robot dog he is being built to live in.</p>
-              <div class="card__foot"><span class="pill" data-status="spike" data-state="live">App on the Microsoft Store</span><span class="pill" data-status="deskBuddy" data-state="build">Robot: prototype, building now</span></div>
-            </div>
-            <span class="card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </a>
-          <a class="card" href="work.html#filez" data-tilt="5" style="--tint:#d9824b">
-            <div class="card__media"><img src="assets/img/work/filez.webp" width="1280" height="720" alt="FileZ showing files it moved, each with a Put back button" loading="lazy" decoding="async"></div>
-            <div class="card__body">
-              <div class="card__top"><img class="card__icon" src="assets/img/work/icon-filez.webp" width="40" height="40" alt=""><h3>FileZ</h3></div>
-              <p>Your Downloads folder, tidy by itself. Nothing is ever deleted, and every move has a Put back button.</p>
-              <div class="card__foot"><span class="pill" data-status="filez" data-state="live">On the Microsoft Store</span><span class="chip">Rust</span><span class="chip">Tauri v2</span></div>
-            </div>
-            <span class="card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </a>
-          <a class="card" href="work.html#mistri-lagbe" data-tilt="5" style="--tint:#e53935">
-            <div class="card__media card__media--phone"><img src="assets/img/work/mistri-home.webp" width="540" height="1170" alt="Mistri Lagbe home screen in Bangla" loading="lazy" decoding="async"><img src="assets/img/work/mistri-service.webp" width="540" height="1170" alt="Mistri Lagbe electrical service screen" loading="lazy" decoding="async"></div>
-            <div class="card__body">
-              <div class="card__top"><img class="card__icon" src="assets/img/work/icon-mistri.webp" width="40" height="40" alt=""><h3>Mistri Lagbe</h3></div>
-              <p>An Android app and website for booking trusted local tradespeople, from electricians to CCTV. In Bangla and English.</p>
-              <div class="card__foot"><span class="pill" data-status="mistri" data-state="test">Android: in testing</span><span class="chip">Flutter</span><span class="chip">Firebase</span></div>
-            </div>
-            <span class="card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </a>
-          <a class="card" href="work.html#hashi-khushi" data-tilt="5" style="--tint:#f0b429">
-            <div class="card__media"><img src="assets/img/work/hashi-khushi.webp" width="1280" height="720" alt="The Hashi Khushi website: a gaye holud stage with a Bangla headline" loading="lazy" decoding="async"></div>
-            <div class="card__body">
-              <div class="card__top"><img class="card__icon" src="assets/img/work/icon-hashi.webp" width="40" height="40" alt=""><h3>Hashi Khushi</h3></div>
-              <p>A website for my mother's business: gaye holud decoration rental and handmade home decor, in Bangla and English.</p>
-              <div class="card__foot"><span class="pill" data-status="hashi" data-state="live">Live website</span><span class="chip">HTML, CSS, JS</span></div>
-            </div>
-            <span class="card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          </a>
-        </div>
-        <div class="rail-progress" aria-hidden="true"><i></i></div>
+      <div class="media" data-grow>
+        <img class="slide" src="assets/img/work/spaceadom-ring.webp" alt="Spaceadom's mouse ring: app icons around the cursor on a warm desktop" width="1600" height="900" loading="lazy">
+        <img class="slide" src="assets/img/work/spaceadom-edges.webp" alt="Spaceadom's touchpad edges settings" width="1600" height="900" loading="lazy">
+        <img class="slide" src="assets/img/work/spaceadom-anything.webp" alt="Spaceadom's keyboard map: any app, website or folder on a key" width="1600" height="900" loading="lazy">
+        <img class="slide" src="assets/img/work/spaceadom-arc.webp" alt="At a screen edge the ring folds into an arc" width="1600" height="900" loading="lazy">
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section section--line" aria-label="Where this started">
-    <div class="wrap">
-      <p class="eyebrow reveal">Where it started</p>
-      <p class="scrub">It started in May 2026 with a script for my own keyboard. <span class="hl">Today</span> it's three apps on the Microsoft Store, a robot dog with a face, and websites for people who needed one.</p>
-      <div class="btn-row reveal" style="margin-top:48px">
-        <a class="btn btn--ghost magnetic" href="story.html"><span>Read the story <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--line" aria-labelledby="svc-title">
-    <div class="wrap">
-      <div class="section-head section-head--split">
-        <div>
-          <p class="eyebrow reveal">Hire SpaceZ</p>
-          <h2 id="svc-title" class="split">What we can build for you.</h2>
+<section class="chapter" id="spike" aria-labelledby="spike-h"
+  data-palette='{"bg":"#15100c","bg3":"#221914","line":"#3a2b21","ink":"#f6eadb","ink2":"#cdb8a3","ink3":"#a08670","accent":"#d9956a"}'
+  style="--chapter-font:'Fraunces',serif;--chapter-weight:500;--chapter-track:-0.02em">
+  <div class="chapter-pin">
+    <div class="chapter-grid">
+      <div class="chapter-copy">
+        <div class="chapter-num"><img src="assets/img/work/icon-spike.webp" alt="" width="36" height="36">02 · Windows, Android and a robot</div>
+        <h3 id="spike-h">Spike <em>and</em> Desk&nbsp;Buddy</h3>
+        <p class="tagline">A desk robot dog with a face, a memory and a personality.</p>
+        <ul>
+          <li>While his body is being built, the same character lives on Windows and Android.</li>
+          <li>His brain runs on your own computer: wake words, memory, alarms and reminders.</li>
+          <li>The body: ESP32-S3 boards, a 4.3-inch touch-screen face, micro servos and a 3D-printed shell modelled in SolidWorks.</li>
+        </ul>
+        <div class="meta"><span class="pill live"><span class="dot"></span>App on the Microsoft Store</span><span class="pill build"><span class="dot"></span>Robot: prototype, building now</span></div>
+        <div class="links">
+          <a class="btn btn-primary btn-small" href="https://apps.microsoft.com/detail/9N9TG975NJ6N" target="_blank" rel="noopener">Get Spike</a>
+          <a class="btn btn-ghost btn-small" href="https://nur-arpon.github.io/Spike/">Meet Spike</a>
         </div>
-        <p class="lede reveal">Every service below points at something we have already shipped, so you can judge the work, not the promise.</p>
       </div>
-      <div class="bento bento--5">
-        <article class="tile tile--feature reveal">
-          <span class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/></svg></span>
-          <h3>Websites</h3>
-          <p>Showpiece sites that move, and calm business sites that load fast and get found. Bilingual if you need it.</p>
-          <a class="tile__proof" href="https://nur-arpon.github.io/Spaceadom/" rel="noopener">See the Spaceadom site <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </article>
-        <article class="tile tile--feature reveal" style="--d:1">
-          <span class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5.5 10.5 4.5v7H3zM12 4.3 21 3v8.5h-9zM3 12.5h7.5v7L3 18.5zM12 12.5h9V21l-9-1.3z"/></svg></span>
-          <h3>Windows apps</h3>
-          <p>Native apps in Rust and Tauri: small, fast, and published on the Microsoft Store.</p>
-          <a class="tile__proof" href="https://apps.microsoft.com/detail/9PNB2QDZK902" rel="noopener">Spaceadom on the Store <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </article>
-        <article class="tile reveal" style="--d:2">
-          <span class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></span>
-          <h3>Android apps</h3>
-          <p>Flutter apps with Firebase behind them, designed for real phones.</p>
-          <a class="tile__proof" href="work.html#mistri-lagbe">See Mistri Lagbe <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </article>
-        <article class="tile reveal" style="--d:3">
-          <span class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></svg></span>
-          <h3>Mac apps</h3>
-          <p>Now taking on macOS. Spaceadom's Mac beta is out.</p>
-          <a class="tile__proof" href="work.html#spaceadom">See Spaceadom <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </article>
-        <article class="tile reveal" style="--d:4">
-          <span class="tile__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg></span>
-          <h3>Store publishing</h3>
-          <p>Listing, screenshots, privacy policy and launch, from someone who has done it three times.</p>
-          <a class="tile__proof" href="https://apps.microsoft.com/search/publisher?name=SpaceZ" rel="noopener">SpaceZ on the Store <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        </article>
-      </div>
-      <div class="btn-row reveal" style="margin-top:32px">
-        <a class="btn btn--ghost magnetic" href="hire.html"><span>How hiring works <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
+      <div class="media square" data-grow>
+        <img class="slide" src="assets/img/work/spike-robot.webp" alt="Spike, a cream and brown robot dog with a screen face" width="1400" height="1400" loading="lazy">
+        <img class="slide" src="assets/img/work/spike-app.webp" alt="The Spike app on Windows with his face and quick actions" width="1280" height="720" loading="lazy" style="object-fit:contain;background:#221914">
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section section--line" aria-labelledby="tl-title">
-    <div class="wrap">
-      <div class="section-head section-head--split">
-        <div>
-          <p class="eyebrow reveal">The road so far</p>
-          <h2 id="tl-title" class="split">From a script to SpaceZ.</h2>
+<section class="chapter" id="filez" aria-labelledby="filez-h"
+  data-palette='{"bg":"#0b1322","bg3":"#132037","line":"#1f2f4b","ink":"#eef3fb","ink2":"#a6b4cb","ink3":"#8494b0","accent":"#5aa2ff"}'>
+  <div class="chapter-pin">
+    <div class="chapter-grid">
+      <div class="chapter-copy">
+        <div class="chapter-num"><img src="assets/img/work/icon-filez.webp" alt="" width="36" height="36">03 · Windows app</div>
+        <h3 id="filez-h">FileZ</h3>
+        <p class="tagline">Your Downloads folder, tidy by itself.</p>
+        <ul>
+          <li>Waits for downloads to finish, then files them where they belong.</li>
+          <li>Nothing is ever deleted, and every move has a Put back button.</li>
+          <li>No AI, no account, no internet: FileZ has no network code at all.</li>
+        </ul>
+        <div class="meta"><span class="pill live"><span class="dot"></span>On the Microsoft Store</span><span class="pill">Rust · Tauri v2</span></div>
+        <div class="links">
+          <a class="btn btn-primary btn-small" href="https://apps.microsoft.com/detail/9MVK3ST0Z29J" target="_blank" rel="noopener">Get FileZ</a>
+          <a class="btn btn-ghost btn-small" href="https://github.com/nur-arpon/FileZ" target="_blank" rel="noopener">Read the source</a>
         </div>
-        <p class="lede reveal">Every date here comes from a public release or a repository on GitHub.</p>
       </div>
-      <ol class="mini-tl">
-        <li class="reveal"><time datetime="2026-05-26">26 May 2026</time><b>SpaceToggle OS</b><span>An AutoHotkey script: hold Space, tap a letter, the app opens.</span></li>
-        <li class="reveal" style="--d:1"><time datetime="2026-07-09">9 Jul 2026</time><b>First native build</b><span>The same idea, rebuilt in Rust and Tauri.</span></li>
-        <li class="reveal" style="--d:2"><time datetime="2026-08-15">15 Aug 2026</time><b>Spaceadom</b><span>Renamed, and the first public release.</span></li>
-        <li class="reveal" style="--d:3"><time datetime="2026-09">Sep 2026</time><b>The Microsoft Store</b><span>Spaceadom goes to the Store. FileZ begins.</span></li>
-        <li class="reveal" style="--d:4"><time datetime="2026-10">Oct 2026</time><b>Spike and the websites</b><span>Spike's own site, and a website for my mother's business.</span></li>
-      </ol>
+      <div class="media" data-grow>
+        <img class="slide" src="assets/img/work/filez.webp" alt="FileZ's home screen with recently filed downloads" width="1280" height="720" loading="lazy">
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="cta" aria-labelledby="cta-title">
-    <div class="wrap">
-      <h2 id="cta-title" class="split">Got an idea? Let's ship it.</h2>
-      <p class="lede reveal">Tell me about your project. I'll reply with a plan and a quote.</p>
-      <div class="btn-row reveal">
-        <a class="btn btn--primary btn--lg magnetic" href="hire.html#brief"><span>Start a project <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a>
-        <a class="btn btn--ghost btn--lg magnetic" href="work.html"><span>See all the work</span></a>
-      </div>
+
+
+<section class="timeline" id="timeline" aria-labelledby="tl-h">
+  <div class="tl-pin">
+    <div class="wrap sec-head">
+      <h2 id="tl-h">The road so far</h2>
+      <p>Every date comes from a public release or a repository on GitHub.</p>
     </div>
-  </section>
+    <div class="tl-track" id="tlTrack">
+      <div class="tl-item big"><div class="tl-date">26 May 2026</div><h4>SpaceToggle OS</h4><p>An AutoHotkey script for my own keyboard, tested with two friends: hold Space, tap a letter, the app opens.</p></div>
+      <div class="tl-item"><div class="tl-date">9 Jul 2026</div><h4>The first native build</h4><p>The same idea rebuilt as a real Windows app in Rust and Tauri.</p></div>
+      <div class="tl-item big"><div class="tl-date">15 Aug 2026</div><h4>It becomes Spaceadom</h4><p>A new name and the first public release. From here on, roughly one release a day.</p><a href="https://nur-arpon.github.io/Spaceadom/">Visit Spaceadom</a></div>
+      <div class="tl-item"><div class="tl-date">12 Sep 2026</div><h4>The mouse ring</h4><p>Hold the middle mouse button and a ring of your apps blooms around the cursor.</p></div>
+      <div class="tl-item big"><div class="tl-date">Sep 2026</div><h4>The Microsoft Store</h4><p>Spaceadom goes to the Store, published as SpaceZ.</p></div>
+      <div class="tl-item"><div class="tl-date">21 Sep 2026</div><h4>FileZ begins</h4><p>A tidy Downloads folder with a Put back button on every move.</p></div>
+      <div class="tl-item big"><div class="tl-date">30 Sep 2026</div><h4>Spike goes public</h4><p>The companion app, his brain, the firmware and the Desk Buddy CAD.</p><a href="https://nur-arpon.github.io/Spike/">Meet Spike</a></div>
+      <div class="tl-item"><div class="tl-date">4 Oct 2026</div><h4>Two websites in a day</h4><p>Spike's own site, and Spaceadom's try-it-in-your-browser site.</p></div>
+      <div class="tl-item big"><div class="tl-date">Now</div><h4>Building next</h4><p>Desk Buddy's body, and Spaceadom for Mac and Linux, both in beta.</p></div>
+    </div>
+    <div class="wrap"><div class="tl-progress" id="tlProgress"></div></div>
+  </div>
+</section>
+
+
+<section class="block" id="skills" aria-labelledby="sk-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="sk-h" class="rv">What I do</h2>
+      <p class="rv">The tools and skills I use most, each one learned by building something real with it.</p>
+    </div>
+    <div class="grid-lines" style="--cols:4">
+      <div class="rv"><span class="n">01</span><h4>Windows apps</h4><p>Rust and Tauri v2: system-wide keyboard hooks, overlays, tray apps and installers, for x64 and ARM64. Packaged and published on the Microsoft Store.</p><a class="proof" href="#spaceadom">Spaceadom and FileZ</a></div>
+      <div class="rv"><span class="n">02</span><h4>Robotics and CAD</h4><p>ESP32-S3 boards, servos and sensors; parts modelled in SolidWorks from Python scripts, then 3D-printed and tested.</p><a class="proof" href="#spike">Desk Buddy</a></div>
+      <div class="rv"><span class="n">03</span><h4>Android and AI</h4><p>Flutter apps, and a companion whose brain runs on your own computer, with conversation through Google Gemini.</p><a class="proof" href="#spike">Spike</a></div>
+      <div class="rv"><span class="n">04</span><h4>Websites</h4><p>Fast, accessible sites with scroll animation, built by hand in HTML, CSS and JavaScript, and found on search.</p><a class="proof" href="https://nur-arpon.github.io/Spaceadom/">The Spaceadom site</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="me" aria-labelledby="me-h" style="padding-top:0">
+  <div class="wrap about-grid">
+    <div class="about-side">
+      <figure class="about-photo reveal-photo"><img src="assets/img/me/arpon.webp" alt="Nur Ifran Arpon" width="1100" height="1375" loading="lazy"></figure>
+    </div>
+    <div class="about-text">
+      <span class="eyebrow rv">So, who made all this?</span>
+      <h2 id="me-h" class="sec-title rv">Hi, I'm Arpon.</h2>
+      <p class="rv">I'm an engineering student, and I learn by building. I start, hit a wall, read, fix it and release again.</p>
+      <p class="rv">It began with one small wish: to open an app without hunting for it. That script became Spaceadom, and Spaceadom taught me Rust, Windows internals and how to ship to the Microsoft Store. FileZ and Spike came next, and Spike pulled me into electronics, CAD and 3D printing.</p>
+      <p class="rv">I keep a written record of every bug, what caused it and how it was fixed, so the same mistake never ships twice. And I only call something finished when it works on a real machine.</p>
+      <div class="about-card rv">
+        <dl class="facts-dl">
+          <div><dt>Name</dt><dd>Nur Ifran Arpon</dd></div>
+          <div><dt>Studying</dt><dd>Engineering</dd></div>
+          <div><dt>Publishes as</dt><dd>SpaceZ</dd></div>
+          <div><dt>Speaks</dt><dd>English and Bangla</dd></div>
+        </dl>
+      </div>
+      <p class="rv" style="margin-top:28px"><a class="proof-link" href="story.html">Read the full journey</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="about" aria-labelledby="ab-h" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="ab-h" class="rv">How I work</h2>
+      <p class="rv">Four habits behind every release. Each one came from something that went wrong first.</p>
+    </div>
+    <div class="grid-lines" style="--cols:4">
+      <div class="rv"><span class="n">01</span><h4>Learn by shipping</h4><p>Start, hit the wall, fix it, release. A small release today teaches more than a perfect plan next month.</p></div>
+      <div class="rv"><span class="n">02</span><h4>Real users first</h4><p>A report from someone using the app beats any guess. The fix starts with their log, not my theory.</p></div>
+      <div class="rv"><span class="n">03</span><h4>Write every bug down</h4><p>What broke, why, and how it was fixed, so the same mistake never ships twice.</p></div>
+      <div class="rv"><span class="n">04</span><h4>Say where it stands</h4><p>Live means live. In development means in development. Nothing is listed until it really works.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="ct-h">
+  <div class="wrap">
+    <h2 id="ct-h" class="rv">Say hello.</h2>
+    <p class="rv">A question about one of my projects, a study or research idea, or just a hello: I read every message myself.</p>
+    <div class="hero-actions rv">
+      <button class="btn btn-whatsapp" type="button" data-email-btn>Email me</button>
+      <a class="btn btn-ghost" href="https://github.com/nur-arpon" target="_blank" rel="me noopener">GitHub</a>
+      <a class="btn btn-ghost" href="https://wa.me/61414089988?text=Hi%20Arpon%2C%20I%20found%20your%20website." target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+    <p class="contact-alt rv" data-email-out hidden></p>
+    <p class="contact-alt rv">Need something built for a business? That is what <a href="https://nur-arpon.github.io/SpaceZ/">SpaceZ, my studio</a>, is for.</p>
+  </div>
+</section>
+
 </main>
 
-<!-- footer:start -->
-<footer class="site-footer">
+<footer class="footer">
   <div class="wrap">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <a class="brand" href="" aria-label="SpaceZ, home">
-          <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#07080A"/><rect x=".5" y=".5" width="63" height="63" rx="15.5" fill="none" stroke="rgba(255,255,255,.16)"/><path d="M18 19H45L19 45H37.5" fill="none" stroke="#C8FF2E" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="47.5" cy="45" r="4.25" fill="#C8FF2E"/></svg>
-          <span>Space<span class="z">Z</span></span>
-        </a>
-        <p>SpaceZ builds apps and websites and ships them. Three apps on the Microsoft Store so far. Clients welcome from anywhere in the world.</p>
-        <p class="footer-kofi">Enjoy the free apps? You can <a href="https://ko-fi.com/nurifran" rel="noopener">buy me a coffee on Ko-fi</a>.</p>
-      </div>
       <div>
-        <h2>Pages</h2>
-        <ul>
-          <li><a href="">Home</a></li>
-          <li><a href="work.html">Work</a></li>
-          <li><a href="story.html">Story</a></li>
-          <li><a href="hire.html">Hire SpaceZ</a></li>
-          <li><a href="privacy.html">Privacy</a></li>
-        </ul>
+        <p class="big">Nur Ifran Arpon</p>
+        <p style="margin:0;max-width:40ch">Engineering student and developer. My apps are published under the name SpaceZ.</p>
+        <p class="kofi">Enjoy the free apps? You can <a href="https://ko-fi.com/nurifran" target="_blank" rel="noopener">buy me a coffee on Ko-fi</a>.</p>
       </div>
-      <div>
-        <h2>Products</h2>
-        <ul>
-          <li><a href="https://nur-arpon.github.io/Spaceadom/" rel="noopener">Spaceadom</a></li>
-          <li><a href="https://nur-arpon.github.io/Spike/" rel="noopener">Spike</a></li>
-          <li><a href="https://apps.microsoft.com/detail/9MVK3ST0Z29J" rel="noopener">FileZ</a></li>
-          <li><a href="https://nur-arpon.github.io/hashi-khushi/" rel="noopener">Hashi Khushi</a></li>
-        </ul>
-      </div>
-      <div>
-        <h2>Elsewhere</h2>
-        <ul>
-          <li><a href="https://github.com/nur-arpon" rel="me noopener">GitHub</a></li>
-          <li><a href="https://apps.microsoft.com/search/publisher?name=SpaceZ" rel="noopener">Microsoft Store</a></li>
-          <li><a href="https://ko-fi.com/nurifran" rel="me noopener">Ko-fi</a></li>
-        </ul>
-      </div>
+      <div><h5>Pages</h5><ul><li><a href="./">Home</a></li><li><a href="./#work">Projects</a></li><li><a href="story.html">Journey</a></li><li><a href="./#contact">Say hello</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
+      <div><h5>Projects</h5><ul><li><a href="https://nur-arpon.github.io/Spaceadom/">Spaceadom</a></li><li><a href="https://nur-arpon.github.io/Spike/">Spike</a></li><li><a href="https://apps.microsoft.com/detail/9MVK3ST0Z29J">FileZ</a></li><li><a href="https://nur-arpon.github.io/SpaceZ/">SpaceZ, my studio</a></li></ul></div>
+      <div><h5>Elsewhere</h5><ul><li><a href="https://github.com/nur-arpon" rel="me">GitHub</a></li><li><a href="https://apps.microsoft.com/search/publisher?name=SpaceZ">Microsoft Store</a></li><li><a href="https://ko-fi.com/nurifran" rel="me">Ko-fi</a></li></ul></div>
     </div>
-    <div class="footer-base">
-      <p>Made by <a href="https://github.com/nur-arpon" rel="author">Nur Ifran Arpon</a> · SpaceZ</p>
-      <p>© <span data-year>2026</span> SpaceZ. All rights reserved.</p>
-    </div>
-    <div class="footer-word" aria-hidden="true">Space<span>Z</span></div>
+    <div class="footer-bottom"><span>© 2026 Nur Ifran Arpon · SpaceZ</span><span>Made by Nur Ifran Arpon</span></div>
   </div>
 </footer>
-<!-- footer:end -->
+
+<script src="assets/js/vendor/gsap.min.js" defer></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/vendor/lenis.min.js" defer></script>
 <script src="assets/js/site.js" defer></script>
-<script src="assets/js/orbit.js" defer></script>
 </body>
 </html>

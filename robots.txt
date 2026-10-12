@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /tools/
 
 Sitemap: https://nur-arpon.github.io/sitemap.xml
+Sitemap: https://nur-arpon.github.io/SpaceZ/sitemap.xml

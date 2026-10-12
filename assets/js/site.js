@@ -1,327 +1,328 @@
-/* SpaceZ site script. Vanilla, no dependencies. Every effect checks reduced motion and pointer type. */
-(() => {
+/* Nur Ifran Arpon — portfolio behaviour.
+   Works without GSAP (plain page), and respects prefers-reduced-motion (no smooth scroll, no pinning, no auto-spin). */
+(function () {
   'use strict';
-  const root = document.documentElement;
-  const $ = (s, c = document) => c.querySelector(s);
-  const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
-  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-  const lerp = (a, b, t) => a + (b - a) * t;
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
-  const store = {
-    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-    set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* storage blocked: fine */ } }
+  var root = document.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var isDesk = function () { return window.innerWidth > 900; };
+  var VARS = ['bg', 'bg2', 'bg3', 'line', 'ink', 'ink2', 'ink3', 'accent'];
+  var CSSVAR = { bg: '--bg', bg2: '--bg-2', bg3: '--bg-3', line: '--line', ink: '--ink', ink2: '--ink-2', ink3: '--ink-3', accent: '--accent' };
+  var THEMES = {
+    black: { bg: '#0e0e0f', bg2: '#161617', bg3: '#1d1d1f', line: '#2c2c2e', ink: '#f2f2f4', ink2: '#a8a8ad', ink3: '#7c7c82', accent: '#9db0ff' },
+    navy: { bg: '#070b17', bg2: '#0d1326', bg3: '#131b33', line: '#222b48', ink: '#eef1fb', ink2: '#a3aac4', ink3: '#8189a8', accent: '#7d97ff' }
   };
+  var theme = function () { return root.getAttribute('data-theme') === 'navy' ? 'navy' : 'black'; };
 
-  /* ---------- Theme ---------- */
-  const themeMeta = $('meta[name="theme-color"]');
-  const applyTheme = (t) => {
+  /* ---------- look switch (black / navy) ---------- */
+  var themeMeta = document.querySelector('meta[name="theme-color"]');
+  function setTheme(t) {
     root.setAttribute('data-theme', t);
-    if (themeMeta) themeMeta.setAttribute('content', t === 'light' ? '#f3f2ec' : '#07080a');
-    $$('.theme-btn').forEach(b => {
-      b.setAttribute('aria-label', t === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
-    });
-  };
-  applyTheme(root.getAttribute('data-theme') || 'dark');
-  $$('.theme-btn').forEach(b => b.addEventListener('click', () => {
-    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-    const go = () => { applyTheme(next); store.set('spacez-theme', next); };
-    if (document.startViewTransition && !reduce.matches) document.startViewTransition(go); else go();
-  }));
-  matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
-    if (!store.get('spacez-theme')) applyTheme(e.matches ? 'light' : 'dark');
+    try { localStorage.setItem('arpon-look', t); } catch (e) {}
+    if (themeMeta) themeMeta.setAttribute('content', THEMES[t].bg);
+    if (!activeChapter) paint(null, true);
+  }
+  document.querySelectorAll('.theme-switch').forEach(function (b) {
+    b.addEventListener('click', function () { setTheme(theme() === 'black' ? 'navy' : 'black'); });
   });
 
-  /* ---------- Header + menu ---------- */
-  const header = $('.site-header');
-  const onScrollHeader = () => header && header.classList.toggle('is-scrolled', scrollY > 8);
-  onScrollHeader();
-  addEventListener('scroll', onScrollHeader, { passive: true });
-
-  const menu = $('#menu');
-  const menuBtn = $('.menu-btn');
-  if (menu && menuBtn) {
-    const closeBtn = $('.menu-close', menu);
-    const open = () => {
-      menu.classList.add('is-open'); menu.removeAttribute('inert'); menu.setAttribute('aria-hidden', 'false');
-      menuBtn.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden';
-      setTimeout(() => closeBtn && closeBtn.focus(), 50);
-    };
-    const close = () => {
-      menu.classList.remove('is-open'); menu.setAttribute('inert', ''); menu.setAttribute('aria-hidden', 'true');
-      menuBtn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; menuBtn.focus();
-    };
-    menuBtn.addEventListener('click', open);
-    closeBtn && closeBtn.addEventListener('click', close);
-    $$('a', menu).forEach(a => a.addEventListener('click', () => { document.body.style.overflow = ''; }));
-    addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('is-open')) close(); });
+  /* ---------- page repaint for project chapters ---------- */
+  var activeChapter = null;
+  function paint(palette, instant) {
+    var target = palette || THEMES[theme()];
+    if (!window.gsap || reduce || instant) {
+      if (palette) VARS.forEach(function (k) { root.style.setProperty(CSSVAR[k], target[k] || target.bg3); });
+      else VARS.forEach(function (k) { root.style.removeProperty(CSSVAR[k]); });
+      return;
+    }
+    var props = { duration: 0.9, ease: 'power2.out', overwrite: true };
+    VARS.forEach(function (k) { props[CSSVAR[k]] = target[k] || target.bg3; });
+    if (!palette) props.onComplete = function () { if (!activeChapter) VARS.forEach(function (k) { root.style.removeProperty(CSSVAR[k]); }); };
+    window.gsap.to(root, props);
   }
 
-  /* ---------- Split headlines + reveal ---------- */
-  $$('.split').forEach(el => {
-    let i = 0;
-    const wrap = (node) => {
-      const w = document.createElement('span'); w.className = 'w';
-      const inner = document.createElement('span'); inner.style.setProperty('--i', i++);
-      w.appendChild(inner); inner.appendChild(node); return w;
-    };
-    Array.from(el.childNodes).forEach(n => {
-      if (n.nodeType === 3) {
-        const frag = document.createDocumentFragment();
-        n.textContent.split(/(\s+)/).forEach(part => {
-          if (!part) return;
-          if (/^\s+$/.test(part)) frag.appendChild(document.createTextNode(' '));
-          else frag.appendChild(wrap(document.createTextNode(part)));
-        });
-        el.replaceChild(frag, n);
-      } else if (n.nodeType === 1 && n.tagName !== 'BR') {
-        el.replaceChild(wrap(n.cloneNode(true)), n);
+  /* ---------- header + mobile menu ---------- */
+  var header = document.getElementById('header');
+  var lastY = 0;
+  function onScrollHeader(y) {
+    header.classList.toggle('scrolled', y > 20);
+    var down = y > lastY && y > 400;
+    if (!root.classList.contains('menu-open')) header.classList.toggle('hidden', down);
+    lastY = y;
+  }
+  var menuBtn = document.querySelector('.menu-btn');
+  function closeMenu() { root.classList.remove('menu-open'); if (menuBtn) { menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.setAttribute('aria-label', 'Open the menu'); } }
+  if (menuBtn) {
+    menuBtn.addEventListener('click', function () {
+      var open = !root.classList.contains('menu-open');
+      root.classList.toggle('menu-open', open);
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? 'Close the menu' : 'Open the menu');
+      header.classList.remove('hidden');
+    });
+    document.querySelectorAll('#sheet a').forEach(function (a) { a.addEventListener('click', closeMenu); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+  }
+
+  /* ---------- email, assembled here so it is not in the HTML ---------- */
+  var mailAddr = function () { return ['mcdengineeringdesign', 'gmail.com'].join('@'); };
+  document.querySelectorAll('[data-email-btn]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var out = document.querySelector('[data-email-out]');
+      if (out) {
+        out.hidden = false; out.textContent = 'My email: ';
+        var a = document.createElement('a'); a.href = 'mailto:' + mailAddr(); a.textContent = mailAddr(); a.style.color = 'var(--ink)';
+        out.appendChild(a);
+      }
+      window.location.href = 'mailto:' + mailAddr() + '?subject=' + encodeURIComponent('Hello from your website');
+    });
+  });
+  document.querySelectorAll('[data-email]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var addr = mailAddr();
+      var a = document.createElement('a');
+      a.href = 'mailto:' + addr; a.textContent = addr; a.style.color = 'var(--ink)';
+      b.replaceWith(a);
+    });
+  });
+
+  /* ---------- statement words ---------- */
+  var words = [];
+  document.querySelectorAll('[data-words]').forEach(function (p) {
+    var parts = p.textContent.trim().split(/\s+/);
+    p.textContent = '';
+    parts.forEach(function (w, i) {
+      var s = document.createElement('span'); s.className = 'w'; s.textContent = w;
+      p.appendChild(s); if (i < parts.length - 1) p.appendChild(document.createTextNode(' '));
+      words.push(s);
+    });
+  });
+
+  /* ---------- without GSAP: show everything, still repaint chapters ---------- */
+  if (!window.gsap || !window.ScrollTrigger) {
+    document.querySelectorAll('.rv').forEach(function (el) { el.style.opacity = 1; el.style.transform = 'none'; });
+    words.forEach(function (w) { w.classList.add('on'); });
+    window.addEventListener('scroll', function () { onScrollHeader(window.scrollY); }, { passive: true });
+    return;
+  }
+  if ('scrollRestoration' in history && !location.hash) { history.scrollRestoration = 'manual'; window.scrollTo(0, 0); }
+  var gsap = window.gsap, ST = window.ScrollTrigger;
+  gsap.registerPlugin(ST);
+
+  /* ---------- smooth scroll ---------- */
+  var lenis = null;
+  if (!reduce && window.Lenis) {
+    lenis = new window.Lenis({ lerp: 0.1, smoothWheel: true });
+    lenis.on('scroll', function (e) { ST.update(); onScrollHeader(e.scroll); });
+    gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+    gsap.ticker.lagSmoothing(0);
+  } else {
+    window.addEventListener('scroll', function () { onScrollHeader(window.scrollY); }, { passive: true });
+  }
+  function goTo(target) {
+    var el = typeof target === 'string' ? document.querySelector(target) : target;
+    if (!el) return;
+    var y = el.getBoundingClientRect().top + window.scrollY;
+    if (el.classList.contains('chapter') && isDesk() && !reduce) y += window.innerHeight * 0.2;
+    if (lenis) lenis.scrollTo(y, { duration: 1.6 }); else window.scrollTo({ top: y, behavior: reduce ? 'auto' : 'smooth' });
+  }
+  document.querySelectorAll('a[href^="#"], a[href^="./#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var id = a.getAttribute('href').replace('./', '');
+      if (id.length < 2 || !document.querySelector(id)) return;
+      e.preventDefault(); goTo(id);
+      history.replaceState(null, '', id);
+    });
+  });
+
+  /* ---------- hero: the revolving ring ---------- */
+  var ring = document.getElementById('ring');
+  var cam = document.getElementById('orbitCam');
+  if (ring && cam) {
+    var cards = [].slice.call(ring.querySelectorAll('.card3d'));
+    var n = cards.length, step = 360 / n;
+    var R = 0, cw = 0, rot = 0, vel = 0, spin = reduce ? 0 : 7, steering = null;
+    var flyZ = 0, tilt = -11, baseX = 0, baseY = 0;
+    function layout() {
+      var w = window.innerWidth, h = window.innerHeight;
+      cw = isDesk() ? Math.min(420, Math.max(290, w * 0.25)) : (w < 600 ? Math.min(230, w * 0.52) : Math.min(340, w * 0.4));
+      R = Math.round((cw * 1.05) / (2 * Math.tan(Math.PI / n)));
+      baseX = isDesk() ? w * 0.24 : 0;
+      baseY = isDesk() ? h * 0.02 : 0;
+      cards.forEach(function (c, i) {
+        c.style.setProperty('--cw', cw + 'px');
+        c.style.transform = 'rotateY(' + (i * step) + 'deg) translateZ(' + R + 'px)';
+      });
+    }
+    function render() {
+      cam.style.transform = 'translate3d(' + baseX + 'px,' + baseY + 'px,' + (-R * 1.0 + flyZ) + 'px) rotateX(' + tilt + 'deg)';
+      ring.style.transform = 'rotateY(' + rot + 'deg)';
+    }
+    layout(); render();
+    window.addEventListener('resize', function () { layout(); render(); });
+
+    gsap.ticker.add(function (t, dt) {
+      var s = dt / 1000;
+      if (steering === null) { rot -= spin * s; rot += vel; vel *= 0.94; }
+      render();
+    });
+
+    // drag to spin
+    var pin = document.querySelector('.hero-pin');
+    var down = false, sx = 0, lx = 0, moved = 0;
+    pin.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse' && e.button !== 0) return; down = true; sx = lx = e.clientX; moved = 0; });
+    window.addEventListener('pointermove', function (e) { if (!down) return; var dx = e.clientX - lx; lx = e.clientX; moved = Math.abs(e.clientX - sx); if (moved > 6) { vel = dx * 0.12; steering = null; } });
+    window.addEventListener('pointerup', function () { down = false; });
+    if (finePointer && !reduce) {
+      pin.addEventListener('pointermove', function (e) { var k = e.clientY / window.innerHeight - 0.5; tilt += ((-11 - k * 6) - tilt) * 0.08; });
+    }
+
+    // tap one: everything spins to it, then we fly to its chapter
+    cards.forEach(function (c, i) {
+      c.addEventListener('click', function (e) {
+        if (moved > 6) { e.preventDefault(); return; }
+        var target = -i * step;
+        var d = ((target - rot) % 360 + 540) % 360 - 180;
+        var o = { r: rot };
+        steering = gsap.to(o, { r: rot + d, duration: reduce ? 0 : 0.9, ease: 'power3.inOut', onUpdate: function () { rot = o.r; }, onComplete: function () { steering = null; goTo(c.getAttribute('data-go')); } });
+      });
+    });
+
+    // scrolling: the camera flies forward through the ring, the name lifts away
+    if (!reduce) {
+      var copy = document.querySelector('.hero-copy');
+      var hint = document.querySelector('.hero-hint');
+      var shade = document.querySelector('.orbit-shade');
+      var fly = { z: 0 };
+      gsap.timeline({ scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom bottom', scrub: 0.6 } })
+        .to(copy, { y: -120, opacity: 0, ease: 'power1.in', duration: 0.45 }, 0)
+        .to(hint, { opacity: 0, duration: 0.1 }, 0)
+        .to(fly, { z: 1, duration: 1, ease: 'power2.in', onUpdate: function () { flyZ = fly.z * (R * 2.3 + 400); } }, 0)
+        .to(shade, { opacity: 0, duration: 0.5 }, 0.2)
+        .to('.orbit', { opacity: 0, duration: 0.25 }, 0.75);
+      // the name comes in line by line
+      gsap.from('.hero h1 .line > span', { yPercent: 110, duration: 1.2, ease: 'power4.out', stagger: 0.09, delay: 0.1 });
+      gsap.from(['.hero-kicker', '.hero-lede', '.hero-actions'], { y: 24, opacity: 0, duration: 1, ease: 'power3.out', stagger: 0.08, delay: 0.45 });
+      gsap.from('.orbit', { opacity: 0, duration: 1.6, ease: 'power2.out', delay: 0.2 });
+    }
+  }
+
+  /* ---------- statement words light up ---------- */
+  if (words.length) {
+    if (reduce) words.forEach(function (w) { w.classList.add('on'); });
+    else ST.create({
+      trigger: '.statement p', start: 'top 80%', end: 'bottom 45%', scrub: true,
+      onUpdate: function (s) { var k = Math.round(s.progress * words.length); words.forEach(function (w, i) { w.classList.toggle('on', i < k); }); }
+    });
+  }
+
+  /* ---------- simple reveals ---------- */
+  if (reduce) gsap.set('.rv', { opacity: 1, y: 0 });
+  else ST.batch('.rv', { start: 'top 88%', once: true, onEnter: function (b) { gsap.to(b, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.08 }); } });
+
+  /* ---------- the photo: a mosaic of my work flips, tile by tile, into me ---------- */
+  document.querySelectorAll('.reveal-photo').forEach(function (f) {
+    var img = f.querySelector('img');
+    if (reduce) return;
+    var front = f.getAttribute('data-front') || 'assets/img/work/spaceadom-arc.webp';
+    var cols = isDesk() ? 8 : 6, rows = Math.round(cols * 1.25);
+    var grid = document.createElement('div');
+    grid.className = 'flip-grid';
+    grid.style.setProperty('--cols', cols); grid.style.setProperty('--rows', rows);
+    var tiles = [];
+    for (var r = 0; r < rows; r++) for (var c = 0; c < cols; c++) {
+      var t = document.createElement('span'); t.className = 'flip';
+      var pos = (cols > 1 ? c / (cols - 1) * 100 : 0) + '% ' + (rows > 1 ? r / (rows - 1) * 100 : 0) + '%';
+      var size = (cols * 100) + '% ' + (rows * 100) + '%';
+      t.innerHTML = '<i class="f" style="background-image:url(' + front + ');background-size:' + size + ';background-position:' + pos + '"></i>' +
+                    '<i class="b" style="background-image:url(' + img.getAttribute('src') + ');background-size:' + size + ';background-position:' + pos + '"></i>';
+      t._d = Math.hypot(c - (cols - 1) / 2, (r - (rows - 1) * 0.35));
+      tiles.push(t); grid.appendChild(t);
+    }
+    [[0, 'tl'], [cols - 1, 'tr'], [(rows - 1) * cols, 'bl'], [rows * cols - 1, 'br']].forEach(function (k) { tiles[k[0]].classList.add(k[1]); });
+    var maxD = Math.max.apply(null, tiles.map(function (t) { return t._d; }));
+    f.appendChild(grid); f.classList.add('tiled');
+    var tl = gsap.timeline({ scrollTrigger: { trigger: f, start: 'top 85%', end: 'top 30%', scrub: 0.9 } });
+    tiles.forEach(function (t) {
+      var at = (t._d / maxD) * 0.55;
+      tl.fromTo(t, { rotateY: 0, z: 0 }, { rotateY: 180, duration: 0.45, ease: 'power2.inOut' }, at)
+        .to(t, { z: 70, duration: 0.22, ease: 'power1.out', yoyo: true, repeat: 1 }, at);
+    });
+    // once every tile has turned, swap the mosaic for the real photo so no seams remain
+    tl.to(img, { opacity: 1, duration: 0.04, ease: 'none' }, 1.0).to(grid, { opacity: 0, duration: 0.04, ease: 'none' }, 1.02);
+  });
+
+  /* ---------- project chapters ---------- */
+  var mm = gsap.matchMedia();
+  document.querySelectorAll('.chapter').forEach(function (ch) {
+    var pal = {};
+    try { pal = JSON.parse(ch.getAttribute('data-palette') || '{}'); } catch (e) {}
+    pal.bg2 = pal.bg2 || pal.bg3;
+    ST.create({
+      trigger: ch, start: 'top 50%', end: 'bottom 50%',
+      onToggle: function (s) {
+        if (s.isActive) { activeChapter = ch; paint(pal); }
+        else if (activeChapter === ch) { activeChapter = null; paint(null); }
       }
     });
   });
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
-  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-  $$('.reveal, .split').forEach(el => io.observe(el));
-
-  /* ---------- Data (site.json) ---------- */
-  const get = (obj, path) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
-  const dataReady = fetch(root.dataset.base ? root.dataset.base + 'data/site.json' : 'data/site.json', { cache: 'no-cache' })
-    .then(r => (r.ok ? r.json() : null)).catch(() => null);
-  dataReady.then(data => {
-    if (!data) return;
-    window.SPACEZ = data;
-    $$('[data-status]').forEach(el => {
-      const s = get(data.projects || {}, el.dataset.status);
-      if (s && s.label) { el.textContent = s.label; el.dataset.state = s.state || ''; }
-    });
-    $$('[data-href]').forEach(el => { const v = get(data, el.dataset.href); if (v) el.href = v; });
-    // optional photos: only appear when data/site.json "photos" has entries
-    const photos = Array.isArray(data.photos) ? data.photos.filter(p => p && p.src) : [];
-    $$('[data-photo]').forEach(slot => {
-      const p = photos[Number(slot.dataset.photo)] || photos[0];
-      if (!p) return;
-      const img = new Image();
-      img.src = p.src; img.alt = p.alt || 'Nur Ifran Arpon';
-      if (p.width) img.width = p.width; if (p.height) img.height = p.height;
-      img.decoding = 'async';
-      const target = $('.photo-slot__img', slot) || slot;
-      target.replaceChildren(img);
-      slot.hidden = false;
-      slot.closest('[data-photo-host]')?.classList.add('has-photo');
-    });
-    document.dispatchEvent(new CustomEvent('spacez:data', { detail: data }));
-  });
-
-  /* ---------- Magnetic buttons ---------- */
-  const magnets = $$('.magnetic');
-  if (magnets.length && finePointer.matches && !reduce.matches) {
-    let mx = -1e4, my = -1e4, raf = 0;
-    const tick = () => {
-      raf = 0;
-      magnets.forEach(el => {
-        const r = el.getBoundingClientRect();
-        const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-        const dx = mx - cx, dy = my - cy;
-        const reach = Math.max(r.width, r.height) * 0.5 + 60;
-        const d = Math.hypot(dx, dy);
-        if (d < reach) {
-          const f = 1 - d / reach;
-          el.style.setProperty('--bx', (dx * 0.35 * f).toFixed(2) + 'px');
-          el.style.setProperty('--by', (dy * 0.45 * f).toFixed(2) + 'px');
-        } else if (el.style.getPropertyValue('--bx')) {
-          el.style.removeProperty('--bx'); el.style.removeProperty('--by');
-        }
-      });
-    };
-    addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; if (!raf) raf = requestAnimationFrame(tick); }, { passive: true });
-    document.addEventListener('pointerleave', () => { mx = my = -1e4; if (!raf) raf = requestAnimationFrame(tick); });
-  }
-
-  /* ---------- Tilt + spotlight ---------- */
-  if (finePointer.matches) {
-    $$('[data-tilt]').forEach(el => {
-      const max = Number(el.dataset.tilt) || 6;
-      el.addEventListener('pointermove', e => {
-        const r = el.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-        el.style.setProperty('--mx', (px * 100).toFixed(1) + '%');
-        el.style.setProperty('--my', (py * 100).toFixed(1) + '%');
-        if (!reduce.matches) {
-          el.style.setProperty('--ry', ((px - 0.5) * max * 2).toFixed(2) + 'deg');
-          el.style.setProperty('--rx', ((0.5 - py) * max * 2).toFixed(2) + 'deg');
-        }
-      });
-      el.addEventListener('pointerleave', () => { el.style.setProperty('--rx', '0deg'); el.style.setProperty('--ry', '0deg'); });
-    });
-    $$('.tile').forEach(el => el.addEventListener('pointermove', e => {
-      const r = el.getBoundingClientRect();
-      el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-      el.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    }));
-  }
-
-  /* ---------- Drag rail with momentum ---------- */
-  $$('[data-rail]').forEach(rail => {
-    const bar = rail.parentElement.querySelector('.rail-progress');
-    const update = () => {
-      const max = rail.scrollWidth - rail.clientWidth;
-      const frac = max > 0 ? (rail.scrollLeft + rail.clientWidth) / rail.scrollWidth : 1;
-      if (bar) bar.style.setProperty('--rp', frac.toFixed(3));
-    };
-    rail.addEventListener('scroll', update, { passive: true });
-    addEventListener('resize', update);
-    update();
-    const step = () => { const c = rail.firstElementChild; return c ? c.getBoundingClientRect().width + 24 : 400; };
-    const scope = rail.closest('section') || document;
-    $$('[data-rail-prev]', scope).forEach(b => b.addEventListener('click', () => rail.scrollBy({ left: -step(), behavior: reduce.matches ? 'auto' : 'smooth' })));
-    $$('[data-rail-next]', scope).forEach(b => b.addEventListener('click', () => rail.scrollBy({ left: step(), behavior: reduce.matches ? 'auto' : 'smooth' })));
-
-    let down = false, startX = 0, startLeft = 0, lastX = 0, lastT = 0, vel = 0, moved = 0, coast = 0;
-    rail.addEventListener('pointerdown', e => {
-      if (e.pointerType !== 'mouse' || e.button !== 0) return;
-      down = true; moved = 0; startX = lastX = e.clientX; startLeft = rail.scrollLeft; lastT = performance.now(); vel = 0;
-      cancelAnimationFrame(coast);
-    });
-    addEventListener('pointermove', e => {
-      if (!down) return;
-      const dx = e.clientX - startX;
-      moved = Math.max(moved, Math.abs(dx));
-      if (moved > 4) rail.classList.add('is-dragging');
-      rail.scrollLeft = startLeft - dx;
-      const now = performance.now();
-      vel = (e.clientX - lastX) / Math.max(1, now - lastT);
-      lastX = e.clientX; lastT = now;
-    });
-    const end = () => {
-      if (!down) return;
-      down = false;
-      if (reduce.matches || Math.abs(vel) < 0.05) { rail.classList.remove('is-dragging'); return; }
-      let v = vel * 16;
-      const glide = () => {
-        rail.scrollLeft -= v; v *= 0.94;
-        if (Math.abs(v) > 0.4) coast = requestAnimationFrame(glide);
-        else rail.classList.remove('is-dragging');
-      };
-      coast = requestAnimationFrame(glide);
-    };
-    addEventListener('pointerup', end);
-    rail.addEventListener('click', e => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
-    rail.addEventListener('dragstart', e => e.preventDefault());
-  });
-
-  /* ---------- Scroll-linked effects (one rAF loop) ---------- */
-  const scrollFx = [];
-  const runScrollFx = () => { const vh = innerHeight; scrollFx.forEach(fn => fn(vh)); };
-  let sfRaf = 0;
-  const queueFx = () => { if (!sfRaf) sfRaf = requestAnimationFrame(() => { sfRaf = 0; runScrollFx(); }); };
-  addEventListener('scroll', queueFx, { passive: true });
-  addEventListener('resize', queueFx);
-
-  // statement that lights up word by word
-  $$('.scrub').forEach(el => {
-    const words = [];
-    const walk = (node, hl) => {
-      Array.from(node.childNodes).forEach(n => {
-        if (n.nodeType === 3) {
-          const frag = document.createDocumentFragment();
-          n.textContent.split(/(\s+)/).forEach(part => {
-            if (!part) return;
-            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
-            const s = document.createElement('span'); s.className = 'sw' + (hl ? ' hl' : ''); s.textContent = part;
-            words.push(s); frag.appendChild(s);
+  if (!reduce) {
+    mm.add('(min-width: 901px)', function () {
+      document.querySelectorAll('.chapter').forEach(function (ch) {
+        var media = ch.querySelector('[data-grow]');
+        var copy = ch.querySelector('.chapter-copy');
+        var slides = [].slice.call(ch.querySelectorAll('.slide'));
+        var tl = gsap.timeline({ scrollTrigger: { trigger: ch, start: 'top top', end: 'bottom bottom', scrub: 0.7 } });
+        tl.fromTo(media, { scale: 0.62, rotateX: 14, y: 80, transformPerspective: 1200 }, { scale: 1, rotateX: 0, y: 0, ease: 'power2.out', duration: 0.32 }, 0)
+          .fromTo(copy.children, { y: 50, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.025, duration: 0.18, ease: 'power2.out' }, 0.04);
+        if (slides.length > 1) {
+          var span = 0.55 / (slides.length - 1);
+          slides.forEach(function (s, i) {
+            if (i === 0) return;
+            var at = 0.36 + (i - 1) * span;
+            tl.fromTo(s, { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: span * 0.22, ease: 'none' }, at)
+              .to(slides[i - 1], { opacity: 0, duration: span * 0.22, ease: 'none' }, at);
           });
-          node.replaceChild(frag, n);
-        } else if (n.nodeType === 1) walk(n, hl || n.classList.contains('hl'));
-      });
-    };
-    walk(el, false);
-    if (reduce.matches) { words.forEach(w => w.classList.add('on')); return; }
-    scrollFx.push(vh => {
-      const r = el.getBoundingClientRect();
-      const p = clamp((vh * 0.85 - r.top) / (r.height + vh * 0.35));
-      const n = Math.round(p * words.length);
-      words.forEach((w, i) => w.classList.toggle('on', i < n));
-    });
-  });
-
-  // timeline that draws itself
-  $$('.tl-wrap').forEach(wrap => {
-    const line = $('.tl__line', wrap);
-    const items = $$('.tl-item', wrap);
-    scrollFx.push(vh => {
-      const r = wrap.getBoundingClientRect();
-      const mark = vh * 0.62;
-      const tp = clamp((mark - r.top) / r.height);
-      if (line) line.style.setProperty('--tp', reduce.matches ? 1 : tp.toFixed(4));
-      items.forEach(it => {
-        const d = $('.tl-dot', it).getBoundingClientRect();
-        it.classList.toggle('is-lit', reduce.matches || d.top < mark);
+        } else {
+          tl.to(media, { scale: 1.04, duration: 0.5, ease: 'none' }, 0.4);
+        }
+        tl.to(media, { y: -40, duration: 0.12, ease: 'none' }, 0.88);
       });
     });
-  });
-
-  // process bar on the hire page
-  $$('.process').forEach(list => {
-    const bar = $('.process__bar', list.parentElement);
-    const steps = $$('li', list);
-    scrollFx.push(vh => {
-      const r = list.getBoundingClientRect();
-      const pp = clamp((vh * 0.8 - r.top) / (vh * 0.5));
-      if (bar) bar.style.setProperty('--pp', reduce.matches ? 1 : pp.toFixed(4));
-      steps.forEach((s, i) => s.classList.toggle('is-lit', reduce.matches || pp >= (i / steps.length) + 0.02));
-    });
-  });
-
-  /* ---------- Filters (work + timeline) ---------- */
-  $$('[data-filter-group]').forEach(group => {
-    const target = document.getElementById(group.dataset.filterGroup);
-    if (!target) return;
-    const btns = $$('[data-filter]', group);
-    btns.forEach(b => b.addEventListener('click', () => {
-      const f = b.dataset.filter;
-      btns.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
-      $$('[data-cat]', target).forEach(el => {
-        const show = f === 'all' || el.dataset.cat.split(' ').includes(f);
-        el.classList.toggle('is-filtered', !show);
+    mm.add('(max-width: 900px)', function () {
+      document.querySelectorAll('.chapter [data-grow]').forEach(function (m) {
+        gsap.fromTo(m, { scale: 0.86, opacity: 0.4 }, { scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: m, start: 'top 95%', end: 'top 40%', scrub: true } });
       });
-      queueFx();
-    }));
-  });
-
-  /* ---------- FAQ: smooth open/close ---------- */
-  $$('.faq details').forEach(d => {
-    const sum = $('summary', d), ans = $('.ans', d);
-    if (!sum || !ans) return;
-    sum.addEventListener('click', e => {
-      if (reduce.matches) return;
-      e.preventDefault();
-      if (d.open) {
-        const a = ans.animate([{ height: ans.offsetHeight + 'px', opacity: 1 }, { height: '0px', opacity: 0 }], { duration: 320, easing: 'cubic-bezier(.65,0,.35,1)' });
-        a.onfinish = () => { d.open = false; };
-      } else {
-        d.open = true;
-        const h = ans.offsetHeight;
-        ans.animate([{ height: '0px', opacity: 0 }, { height: h + 'px', opacity: 1 }], { duration: 420, easing: 'cubic-bezier(.16,1,.3,1)' });
-      }
+      // phones have no pinning, so the extra pictures take turns on their own
+      document.querySelectorAll('.chapter .media').forEach(function (m) {
+        var s = m.querySelectorAll('.slide'); if (s.length < 2) return;
+        var k = 0;
+        setInterval(function () { var prev = s[k]; k = (k + 1) % s.length; gsap.to(prev, { opacity: 0, duration: 0.8 }); gsap.to(s[k], { opacity: 1, duration: 0.8 }); }, 3200);
+      });
     });
-  });
 
-  /* ---------- Clocks (hire page) ---------- */
-  const clocks = $$('[data-clock]');
-  if (clocks.length) {
-    const fmt = (tz) => new Intl.DateTimeFormat(undefined, { hour: '2-digit', minute: '2-digit', timeZone: tz || undefined });
-    const paint = () => clocks.forEach(c => {
-      const tz = c.dataset.clock === 'local' ? undefined : c.dataset.clock;
-      const b = $('b', c); if (b) b.textContent = fmt(tz).format(new Date());
-    });
-    paint(); setInterval(paint, 15000);
-    const you = $('[data-clock="local"] span');
-    try { if (you) you.textContent = 'You · ' + Intl.DateTimeFormat().resolvedOptions().timeZone.replace(/_/g, ' '); } catch (e) { /* keep default label */ }
+    /* ---------- timeline: sideways on wide screens ---------- */
+    var tl = document.getElementById('timeline'), track = document.getElementById('tlTrack'), bar = document.getElementById('tlProgress');
+    if (tl && track) {
+      mm.add('(min-width: 901px)', function () {
+        tl.classList.add('horizontal');
+        var dist = function () { return Math.max(0, track.scrollWidth - window.innerWidth + 120); };
+        tl.style.setProperty('--tl-h', 'calc(100vh + ' + dist() + 'px)');
+        var tw = gsap.to(track, { x: function () { return -dist(); }, ease: 'none', scrollTrigger: { trigger: tl, start: 'top top', end: 'bottom bottom', scrub: 0.5, invalidateOnRefresh: true, onUpdate: function (s) { bar.style.width = (s.progress * 100) + '%'; }, onRefreshInit: function () { tl.style.setProperty('--tl-h', 'calc(100vh + ' + dist() + 'px)'); } } });
+        return function () { tl.classList.remove('horizontal'); tl.style.removeProperty('--tl-h'); gsap.set(track, { clearProps: 'x' }); tw.kill(); };
+      });
+    }
+
+    /* ---------- buttons lean towards the mouse ---------- */
+    if (finePointer) {
+      document.querySelectorAll('.hero-actions .btn, .btn-whatsapp').forEach(function (b) {
+        b.addEventListener('pointermove', function (e) { var r = b.getBoundingClientRect(); gsap.to(b, { x: (e.clientX - r.left - r.width / 2) * 0.18, y: (e.clientY - r.top - r.height / 2) * 0.3, duration: 0.4, ease: 'power3.out' }); });
+        b.addEventListener('pointerleave', function () { gsap.to(b, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1, 0.5)' }); });
+      });
+    }
   }
 
-  $$('[data-year]').forEach(el => { el.textContent = String(new Date().getFullYear()); });
-
-  window.SPACEZ_FX = { queueFx, scrollFx, dataReady, reduce, finePointer, clamp, lerp };
-  runScrollFx();
+  window.addEventListener('load', function () { ST.refresh(); });
+  // test hook: lets an automated check advance time when the page is in a hidden tab
+  window.__tick = function (frames) { for (var i = 0; i < (frames || 60); i++) gsap.ticker.tick(); };
 })();
