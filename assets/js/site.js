@@ -65,7 +65,7 @@
   }
 
   /* ---------- email, assembled here so it is not in the HTML ---------- */
-  var mailAddr = function () { return ['mcdengineeringdesign', 'gmail.com'].join('@'); };
+  var mailAddr = function () { return ['nurifran2005', 'gmail.com'].join('@'); };
   document.querySelectorAll('[data-email-btn]').forEach(function (b) {
     b.addEventListener('click', function () {
       var out = document.querySelector('[data-email-out]');
