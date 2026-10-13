@@ -60,7 +60,9 @@
   var field = (function () {
     var cv = document.getElementById('field');
     if (!cv) return null;
-    var gl = cv.getContext('webgl', { antialias: false, alpha: false, powerPreference: 'low-power' });
+    // alpha stays ON: an opaque full-screen canvas can be handed to the graphics card as a video overlay, and some
+    // Windows GPUs then read its colours as YUV, which turns dark navy into bright green (seen on Nur's own laptop)
+    var gl = cv.getContext('webgl', { antialias: false, alpha: true, premultipliedAlpha: true });
     if (!gl) return null;
     var vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
     var fs = [
@@ -103,6 +105,8 @@
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       if (!reduce) requestAnimationFrame(frame);
     }
+    cv.addEventListener('webglcontextlost', function (e) { e.preventDefault(); running = false; });
+    cv.addEventListener('webglcontextrestored', function () { location.reload(); });
     requestAnimationFrame(frame);
     return { redraw: function () { if (reduce) requestAnimationFrame(frame); } };
   })();
@@ -209,7 +213,7 @@
       if (e.code !== 'Space' || typing(e.target)) return;
       if (timer) { clearTimeout(timer); timer = null; }
       if (held) { held = false; go(); return; }
-      if (!open && !(e.target.closest && e.target.closest('button, a'))) scrollToY(scrollY + innerHeight * (e.shiftKey ? -0.8 : 0.8));
+      if (!open && !(e.target.closest && e.target.closest('button, a')) && !(!e.shiftKey && pullNudge && pullNudge())) scrollToY(scrollY + innerHeight * (e.shiftKey ? -0.8 : 0.8));
     });
     addEventListener('keydown', function (e) { if (e.key === 'Escape' && open) hide(); });
 
@@ -505,9 +509,71 @@
     cleanups.push(function () { mm.revert(); });
   }
 
+  // keep scrolling: once you have reached the very bottom and stopped, scrolling on pulls the next page in
+  var pullEl = null, pullNudge = null;
+  function pullNext() {
+    pullNudge = null;
+    var nx = document.querySelector('main .next[href]');
+    if (!nx) return;
+    if (!pullEl) {
+      pullEl = document.createElement('div'); pullEl.className = 'pull'; pullEl.setAttribute('aria-hidden', 'true');
+      pullEl.innerHTML = '<span class="mono"></span><i><b></b></i>';
+      document.body.appendChild(pullEl);
+    }
+    var fill = pullEl.querySelector('b'), nimg = nx.querySelector('.nimg');
+    pullEl.querySelector('span').textContent = 'Keep scrolling · ' + (nx.querySelector('.nt') || nx).textContent.replace(/→/g, '').trim();
+    var p = 0, armed = false, lastWheel = 0, lastIn = 0, raf = 0, gone = false, ty = null, tArmed = false;
+    function atEnd() { return scrollY + innerHeight >= document.documentElement.scrollHeight - 4; }
+    function draw() {
+      fill.style.transform = 'scaleX(' + p + ')';
+      pullEl.classList.toggle('on', atEnd() || p > 0);
+      if (nimg && !reduce) { nimg.style.transition = 'transform .25s ease-out'; nimg.style.transform = p > 0 ? 'scale(' + (1 + p * 0.2) + ') rotate(' + (-4 * p) + 'deg)' : ''; }
+    }
+    function decay() {
+      if (raf) return;
+      raf = requestAnimationFrame(function step() {
+        raf = 0; if (gone) return;
+        if (performance.now() - lastIn > 450 && p > 0) { p = Math.max(0, p - 0.035); draw(); }
+        if (p > 0) raf = requestAnimationFrame(step);
+      });
+    }
+    function add(d) {
+      if (gone || busy) return;
+      p = Math.max(0, Math.min(1, p + d)); lastIn = performance.now(); draw(); decay();
+      if (p >= 1) { gone = true; navigate(nx.getAttribute('href'), flipImg(nx)); }
+    }
+    var wh = function (e) {
+      var now = performance.now(), dy = e.deltaY * (e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? innerHeight : 1), quiet = now - lastWheel > 220;
+      lastWheel = now;
+      if (!atEnd()) { armed = false; return; }
+      if (!armed) { if (!quiet) return; armed = true; }   // the fling that brought you here does not count
+      add(dy > 0 ? Math.min(dy, 140) / 420 : dy / 200);   // at least three wheel notches, however hard the flick
+    };
+    var sc = function () { if (!atEnd()) { armed = false; if (p) { p = 0; } } draw(); };
+    var ts = function (e) { ty = e.touches[0].clientY; tArmed = atEnd(); };
+    var tm = function (e) { if (ty === null || !tArmed) return; var y = e.touches[0].clientY, d = ty - y; ty = y; add(d > 0 ? d / 170 : d / 120); };
+    var te = function () { ty = null; };
+    var kd = function (e) { if (/^(ArrowDown|PageDown|End)$/.test(e.key) && atEnd() && !(e.target.closest && e.target.closest('input, textarea, select'))) add(0.34); };
+    pullNudge = function () { if (!atEnd()) return false; add(0.34); return true; };
+    addEventListener('wheel', wh, { passive: true });
+    addEventListener('scroll', sc, { passive: true });
+    addEventListener('touchstart', ts, { passive: true });
+    addEventListener('touchmove', tm, { passive: true });
+    addEventListener('touchend', te, { passive: true });
+    addEventListener('keydown', kd);
+    draw();
+    cleanups.push(function () {
+      gone = true; pullNudge = null;
+      removeEventListener('wheel', wh); removeEventListener('scroll', sc); removeEventListener('touchstart', ts);
+      removeEventListener('touchmove', tm); removeEventListener('touchend', te); removeEventListener('keydown', kd);
+      pullEl.classList.remove('on'); fill.style.transform = 'scaleX(0)';
+    });
+  }
+
   function init(fromSwap) {
     var page = document.body.getAttribute('data-page');
     common(fromSwap);
+    pullNext();
     if (page === 'home') home();
     if (page === 'project') project();
     if (page === 'journey') journey();

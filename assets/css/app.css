@@ -361,3 +361,15 @@ button { font: inherit; color: inherit; }
 body[data-page="project"] .f-clock, body[data-page="project"] .f-hint, body[data-page="journey"] .f-clock, body[data-page="journey"] .f-hint { opacity: 0; pointer-events: none; }
 .facts > div { min-width: 0; }
 @media (max-width: 520px) { .facts b { font-size: clamp(30px, 9vw, 40px); } .facts span { font-size: 15px; } }
+
+/* keep scrolling: the little bar that fills as you scroll past the end into the next page */
+.pull { position: fixed; left: 50%; bottom: 22px; z-index: 45; display: flex; flex-direction: column; align-items: center; gap: 9px; padding: 11px 18px 13px; border: 1px solid var(--line); border-radius: 999px; background: color-mix(in srgb, var(--bg) 72%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); white-space: nowrap; pointer-events: none; opacity: 0; transform: translate(-50%, 14px); transition: opacity .45s var(--ease), transform .45s var(--ease); }
+.pull.on { opacity: 1; transform: translate(-50%, 0); }
+.pull .mono { font-size: 12px; color: var(--ink-2, var(--ink)); }
+.pull i { display: block; width: 100%; min-width: 120px; height: 2px; border-radius: 2px; background: var(--line); overflow: hidden; }
+.pull b { display: block; height: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform .12s linear; }
+@media (prefers-reduced-motion: reduce) { .pull { transition: none; } }
+/* room under the footer so the keep-scrolling bar never sits on its links */
+body[data-page="home"] .footer, body[data-page="project"] .footer, body[data-page="journey"] .footer { margin-bottom: 76px; }
+@media (max-width: 520px) { .next .nt { font-size: clamp(38px, 11vw, 56px); gap: 14px; } .next .nimg { width: clamp(84px, 24vw, 120px); } }
+@media (max-width: 360px) { .btn { padding-inline: 20px; font-size: 15px; } }
