@@ -407,10 +407,24 @@
       var mv = function (e) { qx(e.clientX); qy(e.clientY); };
       addEventListener('pointermove', mv, { passive: true });
       cleanups.push(function () { removeEventListener('pointermove', mv); gsap.set(hv, { opacity: 0 }); });
-      list.querySelectorAll('.wrow').forEach(function (row, i) {
-        row.addEventListener('pointerenter', function () { imgs.forEach(function (im, k) { im.classList.toggle('on', k === i); }); gsap.to(hv, { opacity: 1, scale: 1, rotate: (i % 2 ? 3 : -3), duration: 0.5, ease: 'power3.out' }); });
-        row.addEventListener('pointerleave', function () { gsap.to(hv, { opacity: 0, scale: 0.85, duration: 0.4 }); });
-      });
+      // the picture follows whatever row is under the pointer RIGHT NOW: scrolling moves rows out from under a
+      // still mouse without any pointerleave, so it is re-checked on scroll too (it used to hang on screen)
+      var rows = [].slice.call(list.querySelectorAll('.wrow')), shown = -1, lx = -1, ly = -1;
+      function sync() {
+        var el = lx < 0 || list.classList.contains('hidden') ? null : document.elementFromPoint(lx, ly);
+        var row = el && el.closest ? el.closest('.wrow') : null, i = row ? rows.indexOf(row) : -1;
+        if (i === shown) return;
+        shown = i;
+        if (i < 0) { gsap.to(hv, { opacity: 0, scale: 0.85, duration: 0.3, overwrite: 'auto' }); return; }
+        imgs.forEach(function (im, k) { im.classList.toggle('on', k === i); });
+        gsap.to(hv, { opacity: 1, scale: 1, rotate: (i % 2 ? 3 : -3), duration: 0.5, ease: 'power3.out', overwrite: 'auto' });
+      }
+      var pm = function (e) { lx = e.clientX; ly = e.clientY; sync(); };
+      var out = function () { lx = -1; sync(); };
+      addEventListener('pointermove', pm, { passive: true });
+      addEventListener('scroll', sync, { passive: true });
+      document.documentElement.addEventListener('pointerleave', out);
+      cleanups.push(function () { removeEventListener('pointermove', pm); removeEventListener('scroll', sync); document.documentElement.removeEventListener('pointerleave', out); });
     }
     var vb = document.querySelectorAll('.views button');
     vb.forEach(function (b) {
