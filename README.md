@@ -2,12 +2,13 @@
 
 The personal website of Nur Ifran Arpon: https://nur-arpon.github.io/
 
-Plain HTML, CSS and JavaScript, served by GitHub Pages from the repository root. Motion by GSAP with ScrollTrigger and Lenis (in `assets/js/vendor`).
+Plain HTML, CSS and JavaScript on GitHub Pages, no build step to view it.
 
-- `index.html` is the home page. The other pages (`story.html`, `privacy.html`, `404.html`) are built from `tools/pages/` with `python tools/build_pages.py`, which copies the header and footer from `index.html`.
-- Each project section repaints the page in that project's own colours: see the `data-palette` attribute on each `.chapter`.
+- `tools/pages/*.html` hold each page's content; `python tools/build.py` wraps them in the shared frame (header, Space ring menu, loader, footer) and writes the pages at the root.
+- `assets/js/app.js`: the light field (raw WebGL), hold-Space ring navigation, page-to-page transitions, and the scroll scenes. GSAP, ScrollTrigger and Lenis are in `assets/js/vendor`.
+- Product pages carry their own colours in the `palette` line of their page file.
 - `work.html` and `hire.html` are redirects kept so old links still work.
 
-Fonts: Inter, Outfit, Fraunces and Cormorant Garamond, under the SIL Open Font License (`assets/fonts`).
+Fonts: Inter, JetBrains Mono, Outfit and Fraunces, under the SIL Open Font License (`assets/fonts`).
 
-Made by Nur Ifran Arpon · SpaceZ. © 2026 Nur Ifran Arpon. All rights reserved.
+© 2026 Nur Ifran Arpon. Apps published as SpaceZ.

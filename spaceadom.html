@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" data-theme="navy" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Spaceadom — a spacebar app launcher for Windows, by Nur Ifran Arpon</title>
+<meta name="description" content="Spaceadom, designed and built by Nur Ifran Arpon: hold Space, tap a letter, and the app opens. A native Rust and Tauri app on the Microsoft Store, with macOS and Linux betas.">
+<link rel="canonical" href="https://nur-arpon.github.io/spaceadom.html">
+
+<meta name="author" content="Nur Ifran Arpon">
+<meta name="theme-color" content="#050a18">
+<script>(function(){var d=document.documentElement;d.className=d.className.replace('no-js','js');var t=null;try{t=localStorage.getItem('arpon-look')}catch(e){}if(t==='navy'||t==='black')d.setAttribute('data-theme',t)})();</script>
+<link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="icon" href="assets/img/favicon.svg?v=3" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png?v=3" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png?v=3">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nur Ifran Arpon">
+<meta property="og:title" content="Spaceadom — a spacebar app launcher for Windows, by Nur Ifran Arpon">
+<meta property="og:description" content="Spaceadom, designed and built by Nur Ifran Arpon: hold Space, tap a letter, and the app opens. A native Rust and Tauri app on the Microsoft Store, with macOS and Linux betas.">
+<meta property="og:url" content="https://nur-arpon.github.io/spaceadom.html">
+<meta property="og:image" content="https://nur-arpon.github.io/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+</head>
+<body data-page="project" data-palette='{"bg":"#060b1c","bg2":"#0c1430","bg3":"#131d3d","line":"#222c50","ink":"#eef1fb","ink2":"#a3aac4","ink3":"#8189a8","accent":"#7d97ff","glow":"#2c42a8"}' style="--p-font:'Outfit', 'Inter', sans-serif">
+<a class="skip" href="#main">Skip to content</a>
+<canvas id="field" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="loader" aria-hidden="true"><div class="lname">Nur Ifran Arpon</div><span class="count">000</span><span class="bar"></span></div>
+<div class="frame">
+  <a class="f-name" href="./" aria-label="Nur Ifran Arpon, home"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="fnv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b2a6b"/><stop offset="1" stop-color="#070b17"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#fnv)"/><path d="M17 47 L32 16 L47 47" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="38" r="3.6" fill="#8ea2ff"/></svg>Nur Ifran Arpon</a>
+  <div class="f-right">
+    <button class="pill-btn look" type="button" aria-label="Switch the look between navy and black"><span data-v="navy">Navy</span><span data-v="black">Black</span></button>
+    <button class="pill-btn" type="button" data-ring aria-haspopup="true" aria-controls="ringNav"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Menu</button>
+  </div>
+  <span class="f-clock mono" data-clock></span>
+  <span class="f-hint mono">Hold <span class="key">Space</span> to fly anywhere</span>
+</div>
+<div class="ring-nav" id="ringNav" aria-hidden="true">
+  <div class="veil"></div>
+  <button class="pill-btn close" type="button">Close</button>
+  <div class="hub">
+    <div class="beam"></div>
+    <div class="centre">Drift to a page, then let go</div>
+      <div class="item"><a href="./"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--bg-3)"/><path d="M11 30 L20 11 L29 30" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="24.5" r="2.4" fill="var(--accent)"/></svg><span class="lbl">Home</span></a></div>
+      <div class="item"><a href="spaceadom.html"><img src="assets/img/work/icon-spaceadom.webp" alt="" width="40" height="40"><span class="lbl">Spaceadom</span></a></div>
+      <div class="item"><a href="spike.html"><img src="assets/img/work/icon-spike.webp" alt="" width="40" height="40"><span class="lbl">Spike</span></a></div>
+      <div class="item"><a href="filez.html"><img src="assets/img/work/icon-filez.webp" alt="" width="40" height="40"><span class="lbl">FileZ</span></a></div>
+      <div class="item"><a href="story.html"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--bg-3)"/><path d="M9 26 C15 26 15 14 21 14 S27 26 31 26" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><circle cx="9" cy="26" r="2.6" fill="var(--accent)"/><circle cx="31" cy="26" r="2.6" fill="var(--accent)"/></svg><span class="lbl">Journey</span></a></div>
+      <div class="item"><a href="./#about"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--bg-3)"/><circle cx="20" cy="16" r="5.5" fill="none" stroke="var(--ink)" stroke-width="3"/><path d="M10 31 C11 24 29 24 30 31" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></svg><span class="lbl">About me</span></a></div>
+      <div class="item"><a href="./#contact"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--bg-3)"/><rect x="9" y="12" width="22" height="16" rx="3" fill="none" stroke="var(--ink)" stroke-width="3"/><path d="M10 14 L20 22 L30 14" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl">Say hello</span></a></div>
+  </div>
+</div>
+
+<main id="main" data-page="project">
+<section class="wrap p-hero" aria-labelledby="p-h">
+  <div class="p-cover" data-hero-media><img src="assets/img/work/spaceadom-arc.webp" alt="Spaceadom's app ring folding into an arc at the edge of a desktop" width="1600" height="900"></div>
+  <h1 id="p-h">Spaceadom</h1>
+  <dl class="p-meta">
+    <div><dt>Role</dt><dd>Design and engineering</dd></div>
+    <div><dt>Platform</dt><dd>Windows 10 and 11</dd></div>
+    <div><dt>Status</dt><dd>On the Microsoft Store</dd></div>
+    <div><dt>Started</dt><dd>May 2026</dd></div>
+    <div><dt>Built with</dt><dd>Rust · Tauri v2</dd></div>
+  </dl>
+</section>
+
+<section class="wrap sec p-intro" aria-label="The idea">
+  <span class="mono rv">The idea</span>
+  <p class="big-words" data-words>Hold Space, tap a letter, and the app opens. Tap it again and it is gone. Tap Space on its own and it still types a space.</p>
+</section>
+
+<section class="film" aria-label="Spaceadom in four frames">
+  <div class="film-pin"><div class="film-grid">
+    <div>
+      <div class="film-caps">
+        <div class="cap"><span class="mono">01 · The ring</span><h3>Your apps, under the mouse.</h3><p>Hold the middle mouse button, drift towards an app and let go. This website's own menu works the same way: hold Space.</p></div>
+        <div class="cap"><span class="mono">02 · Touchpad edges</span><h3>Edges become sliders.</h3><p>One finger along the edge of the touchpad sets brightness, volume or video position.</p></div>
+        <div class="cap"><span class="mono">03 · Any key</span><h3>Any app, website or folder.</h3><p>Click a key, pick what it opens: every app on the PC, a link, a file or a folder.</p></div>
+        <div class="cap"><span class="mono">04 · Screen edges</span><h3>The ring folds into an arc.</h3><p>Near a screen edge, every app stays on screen, wherever you pressed.</p></div>
+      </div>
+      <div class="film-dots"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div>
+    </div>
+    <div class="film-frames">
+      <img src="assets/img/work/spaceadom-ring.webp" alt="The mouse ring of app icons" width="1600" height="900" loading="lazy">
+      <img src="assets/img/work/spaceadom-edges.webp" alt="Touchpad edge settings" width="1600" height="900" loading="lazy">
+      <img src="assets/img/work/spaceadom-anything.webp" alt="The keyboard map" width="1600" height="900" loading="lazy">
+      <img src="assets/img/work/spaceadom-arc.webp" alt="The ring folded into an arc at a screen edge" width="1600" height="900" loading="lazy">
+    </div>
+  </div></div>
+</section>
+
+<section class="wrap sec" aria-labelledby="f-h">
+  <div class="sec-top"><h2 id="f-h">How it is built</h2><span class="mono">Native and light</span></div>
+  <div class="feature-list">
+    <div class="rv"><span class="mono">Core</span><h3>A system-wide keyboard hook</h3><p>A Rust core watches the keyboard so Space can be a modifier without ever losing a typed space.</p></div>
+    <div class="rv"><span class="mono">Reach</span><h3>x64 and ARM64</h3><p>Built for both kinds of Windows PC and published on the Microsoft Store, with macOS and Linux in beta.</p></div>
+    <div class="rv"><span class="mono">Respect</span><h3>No account, no ads</h3><p>No sign-in, no adverts and no analytics in the app. It started in May 2026 as an AutoHotkey script for my own keyboard.</p></div>
+  </div>
+  <div class="btn-row rv" style="margin-top:44px">
+    <a class="btn btn-primary" href="https://apps.microsoft.com/detail/9PNB2QDZK902" target="_blank" rel="noopener">Get it on the Microsoft Store</a>
+    <a class="btn btn-ghost" href="https://nur-arpon.github.io/Spaceadom/" target="_blank" rel="noopener">Visit its website</a>
+    <a class="btn btn-ghost" href="https://github.com/nur-arpon/Spaceadom" target="_blank" rel="noopener">GitHub</a>
+  </div>
+</section>
+
+<a class="wrap next" href="spike.html">
+  <span class="mono">Next project · 02</span>
+  <span class="nt"><span class="nimg" data-flip><img src="assets/img/work/spike-robot.webp" alt="" loading="lazy"></span>Spike →</span>
+</a>
+<footer class="wrap footer">
+  <span>© 2026 Nur Ifran Arpon · Apps published as SpaceZ</span>
+  <nav aria-label="Footer"><a href="./">Home</a><a href="spaceadom.html">Spaceadom</a><a href="spike.html">Spike</a><a href="filez.html">FileZ</a><a href="story.html">Journey</a><a href="https://github.com/nur-arpon" rel="me">GitHub</a><a href="https://nur-arpon.github.io/SpaceZ/">SpaceZ studio</a><a href="privacy.html">Privacy</a></nav>
+  <span class="kofi">Enjoy the free apps? <a href="https://ko-fi.com/nurifran" target="_blank" rel="noopener">Buy me a coffee</a></span>
+</footer>
+</main>
+
+<script src="assets/js/vendor/gsap.min.js" defer></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/vendor/lenis.min.js" defer></script>
+<script src="assets/js/app.js" defer></script>
+</body>
+</html>

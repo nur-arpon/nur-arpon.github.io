@@ -1,63 +1,69 @@
 <!doctype html>
-<html lang="en" data-theme="black" class="no-js">
+<html lang="en" data-theme="navy" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="author" content="Nur Ifran Arpon">
-<meta name="theme-color" content="#0e0e0f">
-<script>(function(){var d=document.documentElement;d.className=d.className.replace('no-js','js');var t=null;try{t=localStorage.getItem('arpon-look')}catch(e){}if(t==='navy'||t==='black')d.setAttribute('data-theme',t)})();</script>
-<link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/site.css">
-<link rel="icon" href="assets/img/favicon.svg?v=2" type="image/svg+xml">
-<link rel="icon" href="assets/img/favicon-32.png?v=2" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png?v=2">
 <title>Privacy — Nur Ifran Arpon</title>
 <meta name="description" content="Privacy for nur-arpon.github.io, the personal website of Nur Ifran Arpon. It collects nothing.">
 <link rel="canonical" href="https://nur-arpon.github.io/privacy.html">
 
+<meta name="author" content="Nur Ifran Arpon">
+<meta name="theme-color" content="#050a18">
+<script>(function(){var d=document.documentElement;d.className=d.className.replace('no-js','js');var t=null;try{t=localStorage.getItem('arpon-look')}catch(e){}if(t==='navy'||t==='black')d.setAttribute('data-theme',t)})();</script>
+<link rel="preload" href="assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="icon" href="assets/img/favicon.svg?v=3" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png?v=3" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png?v=3">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nur Ifran Arpon">
 <meta property="og:title" content="Privacy — Nur Ifran Arpon">
 <meta property="og:description" content="Privacy for nur-arpon.github.io, the personal website of Nur Ifran Arpon. It collects nothing.">
+<meta property="og:url" content="https://nur-arpon.github.io/privacy.html">
 <meta property="og:image" content="https://nur-arpon.github.io/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 
 </head>
-<body>
+<body data-page="text">
 <a class="skip" href="#main">Skip to content</a>
-
-<header class="header" id="header">
-  <div class="wrap">
-    <a class="wordmark" href="./">Nur Ifran Arpon</a>
-    <nav class="nav" aria-label="Main">
-      <a href="./#work">Projects</a>
-      <a href="story.html">Journey</a>
-      <a href="./#skills">What I do</a>
-    </nav>
-    <button class="theme-switch" type="button" aria-label="Switch the look between black and navy"><span data-v="black">Black</span><span data-v="navy">Navy</span></button>
-    <a class="btn btn-primary btn-small" href="./#contact">Say hello</a>
-    <button class="menu-btn" type="button" aria-label="Open the menu" aria-expanded="false" aria-controls="sheet"><i></i></button>
+<canvas id="field" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+<div class="loader" aria-hidden="true"><div class="lname">Nur Ifran Arpon</div><span class="count">000</span><span class="bar"></span></div>
+<div class="frame">
+  <a class="f-name" href="./" aria-label="Nur Ifran Arpon, home"><svg viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="fnv" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1b2a6b"/><stop offset="1" stop-color="#070b17"/></linearGradient></defs><rect width="64" height="64" rx="15" fill="url(#fnv)"/><path d="M17 47 L32 16 L47 47" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="32" cy="38" r="3.6" fill="#8ea2ff"/></svg>Nur Ifran Arpon</a>
+  <div class="f-right">
+    <button class="pill-btn look" type="button" aria-label="Switch the look between navy and black"><span data-v="navy">Navy</span><span data-v="black">Black</span></button>
+    <button class="pill-btn" type="button" data-ring aria-haspopup="true" aria-controls="ringNav"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Menu</button>
   </div>
-</header>
-<div class="sheet" id="sheet">
-  <a href="./#work">Projects</a>
-  <a href="story.html">Journey</a>
-  <a href="./#skills">What I do</a>
-  <a href="./#contact">Say hello</a>
-  <button class="theme-switch" type="button" aria-label="Switch the look between black and navy"><span data-v="black">Black</span><span data-v="navy">Navy</span></button>
-  <a class="btn btn-primary" href="./#contact">Say hello</a>
+  <span class="f-clock mono" data-clock></span>
+  <span class="f-hint mono">Hold <span class="key">Space</span> to fly anywhere</span>
+</div>
+<div class="ring-nav" id="ringNav" aria-hidden="true">
+  <div class="veil"></div>
+  <button class="pill-btn close" type="button">Close</button>
+  <div class="hub">
+    <div class="beam"></div>
+    <div class="centre">Drift to a page, then let go</div>
+      <div class="item"><a href="./"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--bg-3)"/><path d="M11 30 L20 11 L29 30" fill="none" stroke="var(--ink)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="24.5" r="2.4" fill="var(--accent)"/></svg><span class="lbl">Home</span></a></div>
+      <div class="item"><a href="spaceadom.html"><img src="assets/img/work/icon-spaceadom.webp" alt="" width="40" height="40"><span class="lbl">Spaceadom</span></a></div>
+      <div class="item"><a href="spike.html"><img src="assets/img/work/icon-spike.webp" alt="" width="40" height="40"><span class="lbl">Spike</span></a></div>
+      <div class="item"><a href="filez.html"><img src="assets/img/work/icon-filez.webp" alt="" width="40" height="40"><span class="lbl">FileZ</span></a></div>
+      <div class="item"><a href="story.html"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--bg-3)"/><path d="M9 26 C15 26 15 14 21 14 S27 26 31 26" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/><circle cx="9" cy="26" r="2.6" fill="var(--accent)"/><circle cx="31" cy="26" r="2.6" fill="var(--accent)"/></svg><span class="lbl">Journey</span></a></div>
+      <div class="item"><a href="./#about"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--bg-3)"/><circle cx="20" cy="16" r="5.5" fill="none" stroke="var(--ink)" stroke-width="3"/><path d="M10 31 C11 24 29 24 30 31" fill="none" stroke="var(--ink)" stroke-width="3" stroke-linecap="round"/></svg><span class="lbl">About me</span></a></div>
+      <div class="item"><a href="./#contact"><svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="10" fill="var(--bg-3)"/><rect x="9" y="12" width="22" height="16" rx="3" fill="none" stroke="var(--ink)" stroke-width="3"/><path d="M10 14 L20 22 L30 14" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="lbl">Say hello</span></a></div>
+  </div>
 </div>
 
-<main id="main">
-<section class="page-head">
-  <div class="wrap">
-    <span class="eyebrow">Privacy</span>
+<main id="main" data-page="text">
+<section class="wrap page-head">
+  <span class="mono">Privacy</span>
     <h1>Right now, nothing.</h1>
-    <p>This page is about this website, nur-arpon.github.io. Each of my apps has its own privacy policy, linked from its own page. Last updated 13 October 2026.</p>
-  </div>
+    <p>This page is about this website, nur-arpon.github.io. Each of my apps has its own privacy policy, linked from its own page. Last updated 14 October 2026.</p>
 </section>
-<section class="block" style="padding-top:0">
-  <div class="wrap prose">
+<section class="wrap sec" style="padding-top:0">
+  <div class="prose">
     <h2>What this website collects</h2>
     <p>Nothing. There are no analytics, no advertising, no tracking pixels, no cookies and no sign-in. The fonts, pictures and scripts are served from this website itself, not from other companies.</p>
     <h2>Who hosts it</h2>
@@ -65,34 +71,23 @@
     <h2>Getting in touch</h2>
     <p>The email and WhatsApp buttons only open your own email or WhatsApp app. Nothing is sent until you press Send there, and this website never sees what you write.</p>
     <h2>Things your browser remembers</h2>
-    <p>If you switch between the Black and Navy looks, your browser remembers that choice on your own device (in local storage). It never leaves your device, and you can clear it with your browser's site data.</p>
+    <p>If you switch between the Navy and Black looks, your browser remembers that choice on your own device (in local storage). It never leaves your device, and you can clear it with your browser's site data.</p>
     <h2>Links to other sites</h2>
     <p>Links to the Microsoft Store, GitHub, Ko-fi, WhatsApp and my project websites take you to sites with their own privacy policies.</p>
     <h2>What may change</h2>
     <p>If visitor counting is ever added, this page will say so first: which service is used, what it counts and how to opt out.</p>
   </div>
 </section>
-</main>
-
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-grid">
-      <div>
-        <p class="big">Nur Ifran Arpon</p>
-        <p style="margin:0;max-width:40ch">Engineering student and developer. My apps are published under the name SpaceZ.</p>
-        <p class="kofi">Enjoy the free apps? You can <a href="https://ko-fi.com/nurifran" target="_blank" rel="noopener">buy me a coffee on Ko-fi</a>.</p>
-      </div>
-      <div><h5>Pages</h5><ul><li><a href="./">Home</a></li><li><a href="./#work">Projects</a></li><li><a href="story.html">Journey</a></li><li><a href="./#contact">Say hello</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
-      <div><h5>Projects</h5><ul><li><a href="https://nur-arpon.github.io/Spaceadom/">Spaceadom</a></li><li><a href="https://nur-arpon.github.io/Spike/">Spike</a></li><li><a href="https://apps.microsoft.com/detail/9MVK3ST0Z29J">FileZ</a></li><li><a href="https://nur-arpon.github.io/SpaceZ/">SpaceZ, my studio</a></li></ul></div>
-      <div><h5>Elsewhere</h5><ul><li><a href="https://github.com/nur-arpon" rel="me">GitHub</a></li><li><a href="https://apps.microsoft.com/search/publisher?name=SpaceZ">Microsoft Store</a></li><li><a href="https://ko-fi.com/nurifran" rel="me">Ko-fi</a></li></ul></div>
-    </div>
-    <div class="footer-bottom"><span>© 2026 Nur Ifran Arpon · SpaceZ</span><span>Made by Nur Ifran Arpon</span></div>
-  </div>
+<footer class="wrap footer">
+  <span>© 2026 Nur Ifran Arpon · Apps published as SpaceZ</span>
+  <nav aria-label="Footer"><a href="./">Home</a><a href="spaceadom.html">Spaceadom</a><a href="spike.html">Spike</a><a href="filez.html">FileZ</a><a href="story.html">Journey</a><a href="https://github.com/nur-arpon" rel="me">GitHub</a><a href="https://nur-arpon.github.io/SpaceZ/">SpaceZ studio</a><a href="privacy.html">Privacy</a></nav>
+  <span class="kofi">Enjoy the free apps? <a href="https://ko-fi.com/nurifran" target="_blank" rel="noopener">Buy me a coffee</a></span>
 </footer>
+</main>
 
 <script src="assets/js/vendor/gsap.min.js" defer></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="assets/js/vendor/lenis.min.js" defer></script>
-<script src="assets/js/site.js" defer></script>
+<script src="assets/js/app.js" defer></script>
 </body>
 </html>
