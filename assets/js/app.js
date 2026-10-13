@@ -22,7 +22,15 @@
   var look = function () { return root.getAttribute('data-theme') === 'black' ? 'black' : 'navy'; };
   var pagePalette = null; // set by product pages
   var current = {};       // the colours on screen right now (the field reads these)
-  function hex(h) { h = h.replace('#', ''); return [parseInt(h.substr(0, 2), 16) / 255, parseInt(h.substr(2, 2), 16) / 255, parseInt(h.substr(4, 2), 16) / 255]; }
+  // colours arrive as "#3b5bdb" or, mid-tween, as "rgba(54,82,201,1)"; both must parse, or the field draws garbage (it flashed green)
+  var lastRGB = {};
+  function hex(h, key) {
+    var v = null, m = /^rgba?\(([^)]+)\)/i.exec(h || '');
+    if (m) { var p = m[1].split(',').map(parseFloat); v = [p[0] / 255, p[1] / 255, p[2] / 255]; }
+    else if (/^#?[0-9a-f]{6}$/i.test(h || '')) { h = h.replace('#', ''); v = [parseInt(h.substr(0, 2), 16) / 255, parseInt(h.substr(2, 2), 16) / 255, parseInt(h.substr(4, 2), 16) / 255]; }
+    if (!v || v.some(isNaN)) return lastRGB[key] || [0.02, 0.04, 0.09];
+    lastRGB[key] = v; return v;
+  }
   function target() { var p = {}, base = LOOKS[look()]; for (var k in VARS) p[k] = (pagePalette && pagePalette[k]) || (pagePalette && k === 'bg2' && pagePalette.bg3) || base[k]; return p; }
   function paint(instant) {
     var t = target();
@@ -90,7 +98,7 @@
       gl.uniform2f(U.r, cv.width, cv.height);
       gl.uniform1f(U.t, reduce ? 12 : (now - t0) / 1000);
       gl.uniform2f(U.m, mx, my);
-      gl.uniform3fv(U.c0, hex(c.bg)); gl.uniform3fv(U.c1, hex(c.glow || c.bg3)); gl.uniform3fv(U.c2, hex(c.accent));
+      gl.uniform3fv(U.c0, hex(c.bg, 'bg')); gl.uniform3fv(U.c1, hex(c.glow || c.bg3, 'glow')); gl.uniform3fv(U.c2, hex(c.accent, 'accent'));
       gl.uniform1f(U.s, strength);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
       if (!reduce) requestAnimationFrame(frame);
