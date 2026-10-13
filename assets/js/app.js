@@ -509,7 +509,7 @@
     cleanups.push(function () { mm.revert(); });
   }
 
-  // keep scrolling: once you have reached the very bottom and stopped, scrolling on pulls the next page in
+  // scroll once more: once you have reached the very bottom and stopped, one more scroll opens the next page
   var pullEl = null, pullNudge = null;
   function pullNext() {
     pullNudge = null;
@@ -521,7 +521,7 @@
       document.body.appendChild(pullEl);
     }
     var fill = pullEl.querySelector('b'), nimg = nx.querySelector('.nimg');
-    pullEl.querySelector('span').textContent = 'Keep scrolling · ' + (nx.querySelector('.nt') || nx).textContent.replace(/→/g, '').trim();
+    pullEl.querySelector('span').textContent = 'Scroll once more · ' + (nx.querySelector('.nt') || nx).textContent.replace(/→/g, '').trim();
     var p = 0, armed = false, lastWheel = 0, lastIn = 0, raf = 0, gone = false, ty = null, tArmed = false;
     function atEnd() { return scrollY + innerHeight >= document.documentElement.scrollHeight - 4; }
     function draw() {
@@ -543,18 +543,18 @@
       if (p >= 1) { gone = true; navigate(nx.getAttribute('href'), flipImg(nx)); }
     }
     var wh = function (e) {
-      var now = performance.now(), dy = e.deltaY * (e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? innerHeight : 1), quiet = now - lastWheel > 220;
+      var now = performance.now(), dy = e.deltaY * (e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? innerHeight : 1), quiet = now - lastWheel > 150;
       lastWheel = now;
       if (!atEnd()) { armed = false; return; }
       if (!armed) { if (!quiet) return; armed = true; }   // the fling that brought you here does not count
-      add(dy > 0 ? Math.min(dy, 140) / 420 : dy / 200);   // at least three wheel notches, however hard the flick
+      if (dy > 0) add(1);   // one more scroll and you are there
     };
     var sc = function () { if (!atEnd()) { armed = false; if (p) { p = 0; } } draw(); };
     var ts = function (e) { ty = e.touches[0].clientY; tArmed = atEnd(); };
-    var tm = function (e) { if (ty === null || !tArmed) return; var y = e.touches[0].clientY, d = ty - y; ty = y; add(d > 0 ? d / 170 : d / 120); };
+    var tm = function (e) { if (ty === null || !tArmed) return; var y = e.touches[0].clientY, d = ty - y; ty = y; if (d > 0) add(d / 50); };
     var te = function () { ty = null; };
-    var kd = function (e) { if (/^(ArrowDown|PageDown|End)$/.test(e.key) && atEnd() && !(e.target.closest && e.target.closest('input, textarea, select'))) add(0.34); };
-    pullNudge = function () { if (!atEnd()) return false; add(0.34); return true; };
+    var kd = function (e) { if (/^(ArrowDown|PageDown|End)$/.test(e.key) && atEnd() && !(e.target.closest && e.target.closest('input, textarea, select'))) add(1); };
+    pullNudge = function () { if (!atEnd()) return false; add(1); return true; };
     addEventListener('wheel', wh, { passive: true });
     addEventListener('scroll', sc, { passive: true });
     addEventListener('touchstart', ts, { passive: true });
